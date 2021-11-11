@@ -6,14 +6,14 @@ function Home() {
 
   return (
     <Layout user={user} loading={loading}>
-      <h1>Next.js and Auth0 Example</h1>
+      <h1>Text-to-Speech(TTS) model's evaluation</h1>
 
       {loading && <p>Loading login info...</p>}
 
       {!loading && !user && (
         <>
           <p>
-            To test the login click in <i>Login</i>
+            In order start on the models evaluation process, click  <i>Login</i>
           </p>
           <p>
             Once you have logged in you should be able to click in{' '}
