@@ -6,14 +6,14 @@ function Home() {
 
   return (
     <Layout user={user} loading={loading}>
-      <h1>Text-to-Speech(TTS) model's evaluation</h1>
+      <h2>Luganda Text-to-Speech(TTS) model evaluation</h2>
 
       {loading && <p>Loading login info...</p>}
 
       {!loading && !user && (
         <>
           <p>
-            In order start on the models evaluation process, click  <i>Login</i>
+            In order to evaluate some of our models please, click  <i>Login</i>
           </p>
           <p>
             Once you have logged in you should be able to click in{' '}

@@ -5,7 +5,7 @@ function Layout({ user, loading = false, children }) {
   return (
     <>
       <Head>
-        <title>Next.js with Auth0</title>
+        <title>Luganda TTS models</title>
       </Head>
 
       <Header user={user} loading={loading} />

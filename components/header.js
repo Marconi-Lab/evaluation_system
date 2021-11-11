@@ -11,14 +11,14 @@ function Header({ user, loading }) {
             </Link>
           </li>
           <li>
-            <Link href="/about">
-              <a>About</a>
+            <Link href="/evaluation">
+              <a>Evaluate</a>
             </Link>
           </li>
           {!loading &&
             (user ? (
               <>
-                <li>
+                {/* <li>
                   <Link href="/profile">
                     <a>Client-rendered profile</a>
                   </Link>
@@ -27,7 +27,7 @@ function Header({ user, loading }) {
                   <Link href="/advanced/ssr-profile">
                     <a>Server rendered profile (advanced)</a>
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <a href="/api/logout">Logout</a>
                 </li>
