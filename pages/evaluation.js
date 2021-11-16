@@ -17,8 +17,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 const muiTheme = createMuiTheme({});
 
-const [audio] = useState(typeof Audio !== "undefined" && new Audio(URL));
-audio.play()
+
 
 const likeAudio = new Audio("https://trello.com/1/cards/614ca1edc70a4087a615f7b1/attachments/614ca22840acbc350039ddcb/download/output33_(1).wav");
 
