@@ -6,20 +6,27 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import Slider from '@mui/material/Slider'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import AudioPlayer from 'material-ui-audio-player';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import TextField from '@mui/material/TextField';
 import { spacing } from '@mui/system';
 import Router, { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 
 
 const muiTheme = createMuiTheme({});
 
+const [audio] = useState(typeof Audio !== "undefined" && new Audio(URL));
+audio.play()
+
+const likeAudio = new Audio("https://trello.com/1/cards/614ca1edc70a4087a615f7b1/attachments/614ca22840acbc350039ddcb/download/output33_(1).wav");
 
 
 
+const playSound = audioFile => {
+  audioFile.play();
+}
 function valuetext(value) {
   return `${value}°C`;
 }
@@ -58,19 +65,18 @@ function EvaluationCard({ user }) {
       <Button variant="contained">Sentence</Button> 
       <p>{sentence}</p>
 
-      <Box sx={{ mx: "auto", width: 200 }}>
-      <ThemeProvider theme={muiTheme}>
-        <AudioPlayer
-          width="58px"
-          volume={false}
-          displaySlider={false}
-          src="https://trello.com/1/cards/614ca1edc70a4087a615f7b1/attachments/614ca22840acbc350039ddcb/download/output33_(1).wav"
-        />
-      </ThemeProvider>
-      </Box>
+      <Button
+          onClick={() => playSound(likeAudio)}
+          variant="contained"
+          color="primary"
+      >
+          <PlayArrowIcon />
+      </Button>
       <p>Use the slider below to rate the sentence from 0 to 5</p>
-      <p>0 is a very bad generated audio clip</p>
-      <p>5 is a very good, close to natural speaking audio clip</p>
+      <ul>
+        <li>0 is a very bad generated audio clip</li>
+        <li>5 is a very good, close to natural speaking audio clip</li>
+      </ul>
       <Box sx={{ mx: "auto", width: 500 }}>
         <Slider
           aria-label="Temperature"

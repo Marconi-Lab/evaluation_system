@@ -15,6 +15,11 @@ function Header({ user, loading }) {
               <a>Evaluate</a>
             </Link>
           </li>
+          <li>
+            <Link href="/tts">
+              <a>TTS</a>
+            </Link>
+          </li>
           {!loading &&
             (user ? (
               <>
@@ -59,7 +64,7 @@ function Header({ user, loading }) {
         li {
           margin-right: 1rem;
         }
-        li:nth-child(2) {
+        li:nth-child(3) {
           margin-right: auto;
         }
         a {
