@@ -10,10 +10,13 @@ import AudioPlayer from 'material-ui-audio-player';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import TextField from '@mui/material/TextField';
 import { spacing } from '@mui/system';
+import Router, { useRouter } from 'next/router'
+import React, { useState } from 'react'
 
 
 
 const muiTheme = createMuiTheme({});
+
 
 
 
@@ -22,6 +25,30 @@ function valuetext(value) {
 }
 
 function EvaluationCard({ user }) {
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [sentence, setSentence] = useState("Akakiiko kano kajja kufunanga ebiteeso okuva eri abalagaanyi ebikwata ku mirimu gy'enkulaakulana.")
+  const [metric, setMetric] = useState(1.5)
+  const [comment, setComment] = useState('')
+  const [model, setModel] = useState('')
+  
+  const submitData = async e => {
+    e.preventDefault()
+    try {
+      name = user.nickname
+      email = user.name
+      model = "v1"
+      const body = { name, email, sentence, metric, comment, model }
+      await fetch(`http://localhost:3000/api/post`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      await Router.push('/')
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <>
       <h1>Evaluate</h1>
@@ -29,7 +56,7 @@ function EvaluationCard({ user }) {
       <div>
       <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
       <Button variant="contained">Sentence</Button> 
-      <p>Akakiiko kano kajja kufunanga ebiteeso okuva eri abalagaanyi ebikwata ku mirimu gy'enkulaakulana.</p>
+      <p>{sentence}</p>
 
       <Box sx={{ mx: "auto", width: 200 }}>
       <ThemeProvider theme={muiTheme}>
@@ -42,6 +69,8 @@ function EvaluationCard({ user }) {
       </ThemeProvider>
       </Box>
       <p>Use the slider below to rate the sentence from 0 to 5</p>
+      <p>0 is a very bad generated audio clip</p>
+      <p>5 is a very good, close to natural speaking audio clip</p>
       <Box sx={{ mx: "auto", width: 500 }}>
         <Slider
           aria-label="Temperature"
@@ -52,6 +81,8 @@ function EvaluationCard({ user }) {
           marks
           min={0}
           max={5}
+          onChange={e => setMetric(e.target.value)}
+          value={metric}
         />
       </Box>
 
@@ -59,9 +90,14 @@ function EvaluationCard({ user }) {
         
       </Box>
 
+
+      <form
+          onSubmit={submitData}>
       <Box sx={{ mx: "auto", width: 500 }}>
-        <TextField fullWidth label="comment" id="comment" />
+        <TextField fullWidth label="comment" id="comment" onChange={e => setComment(e.target.value)} value={comment}/>
       </Box>
+
+      
 
       <Box sx={{ paddingTop: 2 }}>
         
@@ -69,10 +105,12 @@ function EvaluationCard({ user }) {
 
       <Box sx={{ mx: "auto", width: 0 }}>
       <ButtonGroup disableElevation variant="contained">
-        <Button>Submit</Button>
+        <Button type="submit" value="Create" >Submit</Button>
         <Button>Next</Button>
       </ButtonGroup>
       </Box>
+
+      </form>
 
 
         

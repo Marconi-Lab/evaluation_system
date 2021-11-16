@@ -13,6 +13,10 @@ datasource db {
 model User {
   id    Int     @id @default(autoincrement())
   createdAt DateTime @default(now())
-  email     String   @unique
+  email     String?
   name      String?
+  sentence  String?
+  metric    Float?
+  comment   String?
+  model     String?
 }
