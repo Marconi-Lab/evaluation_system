@@ -8,8 +8,14 @@ import Slider from '@mui/material/Slider'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import AudioPlayer from 'material-ui-audio-player';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import TextField from '@mui/material/TextField';
+import { spacing } from '@mui/system';
+
+
 
 const muiTheme = createMuiTheme({});
+
+
 
 function valuetext(value) {
   return `${value}°C`;
@@ -35,8 +41,6 @@ function EvaluationCard({ user }) {
         />
       </ThemeProvider>
       </Box>
-      
-
       <p>Use the slider below to rate the sentence from 0 to 5</p>
       <Box sx={{ mx: "auto", width: 500 }}>
         <Slider
@@ -51,12 +55,26 @@ function EvaluationCard({ user }) {
         />
       </Box>
 
+      <Box sx={{ paddingTop: 2 }}>
+        
+      </Box>
+
+      <Box sx={{ mx: "auto", width: 500 }}>
+        <TextField fullWidth label="comment" id="comment" />
+      </Box>
+
+      <Box sx={{ paddingTop: 2 }}>
+        
+      </Box>
+
       <Box sx={{ mx: "auto", width: 0 }}>
       <ButtonGroup disableElevation variant="contained">
         <Button>Submit</Button>
         <Button>Next</Button>
       </ButtonGroup>
       </Box>
+
+
         
         
         
