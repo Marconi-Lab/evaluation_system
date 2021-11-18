@@ -31,6 +31,12 @@ const tracks = [
 
 
 
+const likeAudio = new Audio("http://[::1]:5002/api/tts?text=Kisaana buli muntu asseeko nnyo omwoyo okutuukiriza ekiragiro kino obulungi.");
+
+const playSound = audioFile => {
+  audioFile.play();
+}
+
 function valuetext(value) {
   return `${value}°C`;
 }
@@ -70,6 +76,15 @@ function EvaluationCard({ user }) {
       <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
       <Button variant="contained">Sentence</Button> 
       <p>{sentence}</p>
+
+      <Button
+          onClick={() => playSound(likeAudio)}
+          variant="contained"
+          color="primary"
+      >
+          <PlayArrowIcon />
+      </Button>
+
 
       <div className="App">
         <Waveform url={selectedTrack.url} />
