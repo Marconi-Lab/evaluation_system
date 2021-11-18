@@ -1,27 +1,13 @@
-# Next.js and Auth0 Example
-
-This example shows how you can use `@auth0/nextjs-auth` to easily add authentication support to your Next.js application. It tries to cover a few topics:
-
-- Signing in
-- Signing out
-- Loading the user on the server side and adding it as part of SSR ([`pages/advanced/ssr-profile.js`](pages/advanced/ssr-profile.js))
-- Loading the user on the client side and using fast/cached SSR pages ([`pages/index.js`](pages/index.js))
-- API Routes which can load the current user ([`pages/api/me.js`](pages/api/me.js))
-- Using hooks to make the user available throughout the application ([`lib/user.js`](lib/user.js))
-
-Read more: [https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/](https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/)
+# A system to evaluate TTS model versions
+After several models for a TTS have been built, we made a system to run the evaluation tests and allow us determine which one os best.
 
 ## How to use
 
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
 
-```bash
-npx create-next-app --example auth0 auth0-app
-# or
-yarn create next-app --example auth0 auth0-app
-```
 
 ## Configuring Auth0
+Read more: [https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/](https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/)
 
 1. Go to the [Auth0 dashboard](https://manage.auth0.com/) and create a new application of type _Regular Web Applications_ and make sure to configure the following
 2. Go to the settings page of the application
