@@ -30,7 +30,6 @@ const tracks = [
 ];
 
 
-
 const likeAudio = new Audio("http://[::1]:5002/api/tts?text=Kisaana buli muntu asseeko nnyo omwoyo okutuukiriza ekiragiro kino obulungi.");
 
 const playSound = audioFile => {
@@ -93,8 +92,6 @@ function EvaluationCard({ user }) {
           selectedTrack={selectedTrack}
           setSelectedTrack={setSelectedTrack}
         />
-        <br />
-        <p>Wavesurfer.js with React.JS</p>
       </div>
 
       

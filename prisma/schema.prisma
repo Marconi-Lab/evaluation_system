@@ -20,3 +20,9 @@ model User {
   comment   String?
   model     String?
 }
+
+model Sentences {
+  id    Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  sentence  String?
+}
