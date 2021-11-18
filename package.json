@@ -26,5 +26,6 @@
   },
   "prisma": {
     "seed": "node prisma/seed.js"
-  }
+  },
+  "license": "MIT"
 }
