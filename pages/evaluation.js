@@ -13,6 +13,11 @@ import React, { useState } from 'react'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Waveform from "./Waveform1";
 import PlayList from "./PlayList";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 const tracks = [
   {
@@ -95,24 +100,44 @@ function EvaluationCard({ user }) {
       </div>
 
       
-      <p>Use the slider below to rate the sentence from 0 to 5</p>
+      <p>Use the radio buttons below to rate the sentence's naturalness</p>
       <ul>
-        <li>0 is a very bad generated audio clip</li>
+        <li>1 is a very bad generated audio clip</li>
         <li>5 is a very good, close to natural speaking audio clip</li>
       </ul>
       <Box sx={{ mx: "auto", width: 500 }}>
-        <Slider
-          aria-label="Temperature"
-          defaultValue={1.5}
-          getAriaValueText={valuetext}
-          valueLabelDisplay="auto"
-          step={0.5}
-          marks
-          min={0}
-          max={5}
-          onChange={e => setMetric(e.target.value)}
-          value={metric}
-        />
+        <RadioGroup row aria-label="top" name="top" defaultValue="3" onChange={e => setMetric(e.target.value)} value={metric}>
+          <FormControlLabel
+            value="1"
+            control={<Radio />}
+            label="1"
+            labelPlacement="top"
+          />
+          <FormControlLabel
+            value="2"
+            control={<Radio />}
+            label="2"
+            labelPlacement="top"
+          />
+          <FormControlLabel
+            value="3"
+            control={<Radio />}
+            label="3"
+            labelPlacement="top"
+          />
+          <FormControlLabel
+            value="4"
+            control={<Radio />}
+            label="4"
+            labelPlacement="top"
+          />
+          <FormControlLabel
+            value="5"
+            control={<Radio />}
+            label="5"
+            labelPlacement="top"
+          />
+        </RadioGroup>
       </Box>
 
       <Box sx={{ paddingTop: 2 }}>
