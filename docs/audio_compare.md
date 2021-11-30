@@ -1,5 +1,5 @@
 # Model comparison based on an inhouse Emergent AI Luganda single speaker dataset
-Here are audio samples with different TTS architectures. The dataset is 10 hours , 42 minutes of a single female speaker recorded in a treated environment for the best quality output.
+Here are audio samples synthesized from different TTS architectures. The dataset is 10 hours , 42 minutes of a single female speaker recorded in a treated environment for the best quality output.
 
 ## sentences
 * **Sample #01**: Eure Schoko-Bonbons sind sagenhaft lecker!
