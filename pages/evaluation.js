@@ -11,39 +11,12 @@ import { spacing } from '@mui/system';
 import Router, { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import Waveform from "./Waveform1";
-import PlayList from "./PlayList";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-const tracks = [
-  {
-    id: 0,
-    title: "Brahms: St Anthony Chorale - Theme, Two Pianos Op.56b",
-    url:
-      "https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav"
-  },
-  {
-    id: 1,
-    title: "Franz Schubert's Ständchen - Voice (Clarinet) & Piano",
-    url:
-      "https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav"
-  }
-];
-
-
-const likeAudio = new Audio("http://[::1]:5002/api/tts?text=Kisaana buli muntu asseeko nnyo omwoyo okutuukiriza ekiragiro kino obulungi.");
-
-const playSound = audioFile => {
-  audioFile.play();
-}
-
-function valuetext(value) {
-  return `${value}°C`;
-}
 
 function EvaluationCard({ user }) {
   const [email, setEmail] = useState('')
@@ -52,7 +25,6 @@ function EvaluationCard({ user }) {
   const [metric, setMetric] = useState(1.5)
   const [comment, setComment] = useState('')
   const [model, setModel] = useState('')
-  const [selectedTrack, setSelectedTrack] = useState(tracks[0]);
 
   
   const submitData = async e => {
@@ -81,25 +53,11 @@ function EvaluationCard({ user }) {
       <Button variant="contained">Sentence</Button> 
       <p>{sentence}</p>
 
-      <Button
-          onClick={() => playSound(likeAudio)}
-          variant="contained"
-          color="primary"
-      >
-          <PlayArrowIcon />
-      </Button>
+      <audio controls>
+        <source src="http://127.0.0.1:5002/api/tts?text=Kisaana buli muntu asseeko nnyo omwoyo okutuukiriza ekiragiro kino obulungi." />
+      </audio>
 
-
-      <div className="App">
-        <Waveform url={selectedTrack.url} />
-        <PlayList
-          tracks={tracks}
-          selectedTrack={selectedTrack}
-          setSelectedTrack={setSelectedTrack}
-        />
-      </div>
-
-      
+     
       <p>Use the radio buttons below to rate the sentence's naturalness</p>
       <ul>
         <li>1 is a very bad generated audio clip</li>

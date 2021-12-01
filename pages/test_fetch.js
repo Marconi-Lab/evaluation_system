@@ -1,9 +1,14 @@
 // posts will be populated at build time by getStaticProps()
-function Blog({ near }) {
+function Blog({ near2 }) {
+
+
   return (
-    
-    <li>{near}</li>
- 
+    <>
+    <li>{near2}</li>
+    <audio controls>
+      <source src="http://127.0.0.1:5002/api/tts?text='Kato yalina ente zange'" />
+    </audio>
+    </>
   )
 }
 
@@ -23,13 +28,20 @@ export async function getStaticProps() {
   const chars = new Uint8Array(arrayBuffer);
   console.log(chars)
   const near = "ne"
+  var binary = '';
+  var len = posts.size;
+  for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode( chars[ i ] );
+  }
+  console.log(btoa(binary))
+  const near2 = btoa(binary)
   // const near = await URL.createObjectURL(posts)
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      near,
+      near2,
     },
   }
 }
