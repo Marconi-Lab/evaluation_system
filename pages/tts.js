@@ -13,11 +13,12 @@ const submitMoreData = async e => {
 }
 function TtsCard({ user }) {
 
-  const [sentence, setSentence] = useState("")
-  
+  const [sentence, setSentence] = useState("Abantu be gwanga lyattu Uganda")
+
   const urlappend = "http://[::1]:5002/api/tts?text="
 
   var newUrl = urlappend + sentence
+
   const likeAudio = new Audio(newUrl);
 
   const playSound = audioFile => {
@@ -34,17 +35,30 @@ function TtsCard({ user }) {
       <Box sx={{ mx: "auto", width: 500 }}>
         <TextField fullWidth label="sentence" id="sentence" onChange={e => setSentence(e.target.value)} value={sentence} />
       </Box>
-
+      
+      
       <Box sx={{ paddingTop: 2 }}>
         
       </Box>
 
       <Box sx={{ mx: "auto", width: 200 }}>
       <ButtonGroup disableElevation variant="contained">
-        <Button type="submit" value="Create" onClick={() => playSound(likeAudio)} >Generate</Button>
+          <Button type="submit" value="Create" onClick={() => playSound(likeAudio)} >Generate</Button>
       </ButtonGroup>
-      </Box>
       
+      </Box>
+
+      <Box sx={{ paddingTop: 2 }}>
+        
+      </Box>
+
+      <Box sx={{ mx: "auto", width: 400 }}>
+      <audio controls>
+        <source src={"http://[::1]:5002/api/tts?text=" + sentence } />
+      </audio>
+      <li>{"http://[::1]:5002/api/tts?text=" + sentence }</li>
+      </Box>
+
       </form>
       
     </>

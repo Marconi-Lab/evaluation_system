@@ -4,18 +4,14 @@ import { useFetchUser } from '../lib/user'
 import Layout from '../components/layout'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
-import Slider from '@mui/material/Slider'
 import ButtonGroup from '@mui/material/ButtonGroup';
 import TextField from '@mui/material/TextField';
-import { spacing } from '@mui/system';
 import Router, { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+
 
 
 function EvaluationCard({ user }) {
