@@ -18,7 +18,7 @@ function EvaluationCard({ user }) {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [sentence, setSentence] = useState("Akakiiko kano kajja kufunanga ebiteeso okuva eri abalagaanyi ebikwata ku mirimu gy'enkulaakulana.")
-  const [metric, setMetric] = useState(1.5)
+  const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
   const [model, setModel] = useState('')
 
@@ -60,7 +60,7 @@ function EvaluationCard({ user }) {
         <li>5 is a very good, close to natural speaking audio clip</li>
       </ul>
       <Box sx={{ mx: "auto", width: 500 }}>
-        <RadioGroup row aria-label="top" name="top" defaultValue="3" onChange={e => setMetric(e.target.value)} value={metric}>
+        <RadioGroup row aria-label="top" name="top" defaultValue="3" onChange={e => setMetric(parseInt(e.target.value))} value={metric}>
           <FormControlLabel
             value="1"
             control={<Radio />}
