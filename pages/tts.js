@@ -35,7 +35,7 @@ function TtsCard({ user }) {
           onSubmit={submitMoreData}>
 
       <Box sx={{ mx: "auto", width: 500 }}>
-        <TextField fullWidth label="sentence" id="sentence" onChange={e => setSentence("http://[::1]:5002/api/tts?text=" + e.target.value)} value={sentence} />
+        <TextField fullWidth label="sentence" id="sentence" onChange={e => setSentence(e.target.value)} value={sentence} />
       </Box>
       
       
