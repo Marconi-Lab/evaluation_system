@@ -15,5 +15,5 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
           owner: kakoozajerry
-          base: master
-          head: master
+          base: main
+          head: main
