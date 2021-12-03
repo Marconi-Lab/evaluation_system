@@ -48,9 +48,9 @@ Some sample original recordings from the inhouse dataset.
 </dl>
 
 
-# Griffin Lim
+# English Hifigan v2 vocder by coqui
 > Details about the model: (todo: link)
-> Tacotron2 + DDC: 302k steps trained
+> Tacotron2 + DDC: 302k steps trained + Hifigan_v2 coqui vocoder
 
 <dl>
 
