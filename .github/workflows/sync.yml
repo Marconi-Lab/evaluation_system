@@ -14,5 +14,10 @@ jobs:
       - uses: tgymnich/fork-sync@v1.4
         with:
           owner: kakoozajerry
-          base: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.GH_PERSONAL_TOKEN }}
           head: main
+          base: main
+          merge_method: merge
+          pr_title: Fork Sync
+          auto_approve: true
