@@ -29,7 +29,7 @@ function TtsCard({ user }) {
   
   return (
     <>
-      <h1>Enter a Luganda sentence below</h1>
+      <h1>Enter a Luganda sentence below here</h1>
 
       <form
           onSubmit={submitMoreData}>
