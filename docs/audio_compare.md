@@ -149,3 +149,10 @@ Some sample original recordings from the inhouse dataset.
 
 # GlowTTS / Waveglow
 > todo
+
+# Speedy Speech
+> For better RTF ( It is the fastest model on coqui)
+> todo
+
+# Fast Speech
+> todo
