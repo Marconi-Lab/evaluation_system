@@ -18,4 +18,4 @@ jobs:
           base: main
           head: main
           auto_approve: true
-          personal_token: ${{ secrets.green }}
+          personal_token: ${{ secrets.GH_PERSONAL_TOKEN }}
