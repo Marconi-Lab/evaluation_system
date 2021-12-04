@@ -1,5 +1,5 @@
 # A system to evaluate various TTS model versions.
-After several model architectures for a TTS system have used to buid a Luganda TTS model, we made a system to run the evaluation tests and allow us determine which one is best.
+After several model architectures for a TTS system have used to buid a Luganda TTS model, we made a system to run the evaluation tests and allow us determine which one is best. We will use the MOS(Mean Opinion Score) approach.
 
 ## How to use
 
