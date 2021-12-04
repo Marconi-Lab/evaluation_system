@@ -1,5 +1,5 @@
 # A system to evaluate various TTS model versions.
-After several models for a TTS have been built, we made a system to run the evaluation tests and allow us determine which one os best.
+After several model architectures for a TTS system have used to buid a Luganda TTS model, we made a system to run the evaluation tests and allow us determine which one is best.
 
 ## How to use
 
