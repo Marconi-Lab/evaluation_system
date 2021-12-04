@@ -1,4 +1,4 @@
-# A system to evaluate various TTS model versions
+# A system to evaluate various TTS model versions.
 After several models for a TTS have been built, we made a system to run the evaluation tests and allow us determine which one os best.
 
 ## How to use
