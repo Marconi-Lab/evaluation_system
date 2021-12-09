@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const submitMoreData = async e => {
     e.preventDefault()
@@ -14,7 +14,15 @@ const submitMoreData = async e => {
 function TtsCard({ user }) {
 
   const [sentence, setSentence] = useState("Abantu be gwanga lyattu Uganda")
-  const [sentence2, setSentence2] = useState("Abantu be gwanga lyattu Uganda")
+  const [sentence2, setSentence2] = useState("http://[::1]:5002/api/tts?text=Abantu be gwanga lyattu Uganda")
+
+  const inputRef = useRef()
+  const setURL = (value) => {
+    setSentence(value)
+    const urlappend2 = "http://[::1]:5002/api/tts?text=" + value
+    inputRef.current.src = urlappend2
+    setSentence2(urlappend2)
+  }
 
   const urlappend = "http://[::1]:5002/api/tts?text="
 
@@ -35,7 +43,7 @@ function TtsCard({ user }) {
           onSubmit={submitMoreData}>
 
       <Box sx={{ mx: "auto", width: 500 }}>
-        <TextField fullWidth label="sentence" id="sentence" onChange={e => setSentence(e.target.value)} value={sentence} />
+        <TextField fullWidth label="sentence" id="sentence" onChange={e => setURL(e.target.value)} value={sentence} />
       </Box>
       
       
@@ -55,10 +63,11 @@ function TtsCard({ user }) {
       </Box>
 
       <Box sx={{ mx: "auto", width: 400 }}>
-      <audio controls>
+      <audio ref={inputRef} controls>
         <source src={sentence2} />
       </audio>
-      <li>{"http://[::1]:5002/api/tts?text=" + sentence }</li>
+      <li>{sentence2}</li>
+      
       </Box>
 
       </form>
