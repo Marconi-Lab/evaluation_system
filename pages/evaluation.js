@@ -68,7 +68,9 @@ function EvaluationCard({ user }) {
       <p>{sentence}</p>
 
       
-
+      {
+        // This is the beginning of the grid side by side layout
+      }
       <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={8}>
@@ -123,22 +125,22 @@ function EvaluationCard({ user }) {
 
           <form
               onSubmit={submitData}>
-          <Box >
-            <TextField fullWidth label="comment" id="comment" onChange={e => setComment(e.target.value)} value={comment}/>
-          </Box>
+            <Box >
+              <TextField fullWidth label="comment" id="comment" onChange={e => setComment(e.target.value)} value={comment}/>
+            </Box>
 
-          
-
-          <Box sx={{ paddingTop: 2 }}>
             
-          </Box>
 
-          <Box sx={{ mx: "auto", width: 0 }}>
-          <ButtonGroup disableElevation variant="contained">
-            <Button type="submit" value="Create" >Submit</Button>
-            <Button>Next</Button>
-          </ButtonGroup>
-          </Box>
+            <Box sx={{ paddingTop: 2 }}>
+              
+            </Box>
+
+            <Box sx={{ mx: "auto", width: 0 }}>
+              <ButtonGroup disableElevation variant="contained">
+                <Button type="submit" value="Create" >Submit</Button>
+                <Button>Next</Button>
+              </ButtonGroup>
+            </Box>
           </form>
         </Grid>
         <Grid item xs={4}>
