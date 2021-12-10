@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import React, { useState, useEffect, useRef } from 'react'
+import Router, { useRouter } from 'next/router'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -33,9 +34,26 @@ const rows = [
   createData(1, 'Bad'),
 ];
 
-// This is to handle the generate button and prevent the auto event change 
+// This is to handle the generate button and prevent the auto event change and deals with the database posting
 const submitMoreData = async e => {
     e.preventDefault()
+}
+
+const push_data = async () => {
+  try {
+    name1 = user.nickname
+    email = user.name
+    model = "v1"
+    const body_new = { name1, email, sentence, metric, comment, model }
+    await fetch(`http://localhost:3000/api/post`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body_new),
+    })
+    // await Router.push('/')
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 // This is the main function to work this component out
@@ -177,7 +195,7 @@ function TtsCard({ user }) {
 
               <Box sx={{ mx: "auto", width: 0 }}>
                 <ButtonGroup disableElevation variant="contained">
-                  <Button type="submit" value="Create" >Submit</Button>
+                  <Button type="submit" value="Create" onClick={() => push_data()}>Submit</Button>
                 </ButtonGroup>
               </Box>
             </form>

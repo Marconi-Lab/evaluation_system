@@ -35,10 +35,7 @@ function Home() {
             In order to evaluate some of our models please, click  <i>Login</i>
           </p>
           <p>The table below will guide you as you rate the various sentences</p>
-          <p>
-            Once you have logged in you should be able to click in{' '}
-            <i>Profile</i> and <i>Logout</i>
-          </p>
+          
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 450 }} aria-label="simple table">
               <TableHead>
@@ -64,6 +61,10 @@ function Home() {
               </TableBody>
             </Table>
           </TableContainer>
+          <p>
+            Once you have logged in you should be able to click in{' '}
+            <i>Evaluate</i>,<i>TTS</i>  and <i>Logout</i>
+          </p>
         </>
       )}
 
