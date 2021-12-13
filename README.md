@@ -1,10 +1,19 @@
 # A system to evaluate various TTS model versions.
-After several model architectures for a TTS(Text to Speech) system have used to buid a Luganda TTS model, we made a system to run the evaluation tests and allow us determine which one is best. We will use the MOS(Mean Opinion Score) approach.
+After several TTS(Text to Speech) architectures are used to buid a Luganda TTS model, we made a system to run the evaluation tests in order to determine which is best. We will use the MOS(Mean Opinion Score) approach.
 
 ## How to use
-
+Clone this repository 
+For testing purposes ensure you can run the commands below
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
 
+## Application sections
+
+#### AuthO
+#### TTS Server to plug in your model
+
+This may be the most confusing part but you need an api to plug in your sentence generation sections 
+
+#### Prisma DB
 
 ## Configuring Auth0
 Read more: [https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/](https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/)
