@@ -9,30 +9,12 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import React, { useState, useEffect, useRef } from 'react'
 import Router, { useRouter } from 'next/router'
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-// This is  a function to generate the table
-function createData(rating, quality) {
-  return { rating, quality};
-}
 
-// Defining the values within the rows
-const rows = [
-  createData(5, 'Excellent'),
-  createData(4, 'Good'),
-  createData(3, 'Fair'),
-  createData(2, 'Poor'),
-  createData(1, 'Bad'),
-];
+
 
 // This is to handle the generate button and prevent the auto event change and deals with the database posting
 const submitMoreData = async e => {
@@ -99,7 +81,7 @@ function TtsCard({ user }) {
           {
             // First grid section with 8 units
           }
-          <Grid item xs={8}>
+          <Grid item xs={12}>
 
             <form
                 onSubmit={submitMoreData}>
@@ -147,31 +129,31 @@ function TtsCard({ user }) {
                     <FormControlLabel
                       value="1"
                       control={<Radio />}
-                      label="1"
+                      label="1 (Bad)"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       value="2"
                       control={<Radio />}
-                      label="2"
+                      label="2 (Poor)"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       value="3"
                       control={<Radio />}
-                      label="3"
+                      label="3 (Fair)"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       value="4"
                       control={<Radio />}
-                      label="4"
+                      label="4 (Good)"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       value="5"
                       control={<Radio />}
-                      label="5"
+                      label="5 (Excellent)"
                       labelPlacement="top"
                     />
                   </RadioGroup>
@@ -202,43 +184,6 @@ function TtsCard({ user }) {
 
           </Grid>
 
-          {
-            //Following grid section with 4 units
-          }
-          <Grid item xs={4}>
-            {
-              // Our side table guiding individuals as they rate
-            }
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Rating</TableCell>
-                      <TableCell align="left">Quality</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.rating}
-                        </TableCell>
-                        <TableCell align="left">{row.quality}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              {
-                // Just to visual what is happing, to be commented out
-              }
-
-              <li>{sentence2}</li>
-
-          </Grid>
 
         </Grid>
       </Box>
