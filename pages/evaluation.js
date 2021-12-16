@@ -12,25 +12,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 
-function createData(rating, quality) {
-  return { rating, quality};
-}
 
-const rows = [
-  createData(5, 'Excellent'),
-  createData(4, 'Good'),
-  createData(3, 'Fair'),
-  createData(2, 'Poor'),
-  createData(1, 'Bad'),
-];
 
 function EvaluationCard({ user }) {
   const [email, setEmail] = useState('')
@@ -73,7 +56,7 @@ function EvaluationCard({ user }) {
         }
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
                 <audio controls>
                   <source src="http://127.0.0.1:5002/api/tts?text=Akakiiko kano kajja kufunanga ebiteeso okuva eri abalagaanyi ebikwata ku mirimu gy'enkulaakulana." />
                 </audio>
@@ -88,31 +71,31 @@ function EvaluationCard({ user }) {
                     <FormControlLabel
                       value="1"
                       control={<Radio />}
-                      label="1"
+                      label="1 (Bad)"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       value="2"
                       control={<Radio />}
-                      label="2"
+                      label="2 (Poor)"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       value="3"
                       control={<Radio />}
-                      label="3"
+                      label="3 (Fair)"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       value="4"
                       control={<Radio />}
-                      label="4"
+                      label="4 (Good)"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       value="5"
                       control={<Radio />}
-                      label="5"
+                      label="5 (Excellent)"
                       labelPlacement="top"
                     />
                   </RadioGroup>
@@ -142,31 +125,6 @@ function EvaluationCard({ user }) {
                     </ButtonGroup>
                   </Box>
                 </form>
-            </Grid>
-            <Grid item xs={4}>
-              <TableContainer component={Paper}>
-                  <Table aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Rating</TableCell>
-                        <TableCell align="left">Quality</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <TableRow
-                          key={row.name}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {row.rating}
-                          </TableCell>
-                          <TableCell align="left">{row.quality}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
             </Grid>
           </Grid>
         </Box>
