@@ -43,7 +43,7 @@ function TtsCard({ user }) {
 
   // These states are used to handle the sentence being typed
   const [sentence, setSentence] = useState("Wandika wanno")
-  const [sentence2, setSentence2] = useState("http://[::1]:5002/api/tts?text=Wandika wanno")
+  const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text=Wandika wanno")
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
 
@@ -53,13 +53,13 @@ function TtsCard({ user }) {
   // This function handles the sentence variable state change and also with an inputRef churns the audio output
   const setURL = (value) => {
     setSentence(value)
-    const urlappend2 = "http://[::1]:5002/api/tts?text=" + value
+    const urlappend2 = "http://34.132.72.167:5002/api/tts?text=" + value
     inputRef.current.src = urlappend2
     setSentence2(urlappend2)
   }
 
   // This is the initial Audio component value, will change after the generate button is clicked
-  const urlappend = "http://[::1]:5002/api/tts?text="
+  const urlappend = "http://34.132.72.167:5002/api/tts?text="
 
   // Basic appending of a sentence to the above value
   var newUrl = urlappend + sentence

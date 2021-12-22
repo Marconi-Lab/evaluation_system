@@ -58,7 +58,7 @@ function EvaluationCard({ user }) {
           <Grid container spacing={2}>
             <Grid item xs={12}>
                 <audio controls>
-                  <source src="http://127.0.0.1:5002/api/tts?text=Akakiiko kano kajja kufunanga ebiteeso okuva eri abalagaanyi ebikwata ku mirimu gy'enkulaakulana." />
+                  <source src="http://34.132.72.167:5002/api/tts?text=Akakiiko kano kajja kufunanga ebiteeso okuva eri abalagaanyi ebikwata ku mirimu gy'enkulaakulana." />
                 </audio>
 
             
