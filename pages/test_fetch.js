@@ -18,7 +18,7 @@ function Blog({ near2 }) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch(`http://127.0.0.1:5002/api/tts?text="Kato yalina ente zange"`)
+  const res = await fetch(`http://34.132.72.167:5002/api/tts?text="Kato yalina ente zange"`)
   const posts = await res.blob()
   console.log(typeof res)
   console.log(posts.size)
