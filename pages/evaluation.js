@@ -17,8 +17,9 @@ import Grid from '@mui/material/Grid';
 
 function EvaluationCard({ user, posts }) {
   const [email, setEmail] = useState('')
+  const [indexValue, setIndexValue] = useState(0)
   const [name, setName] = useState('')
-  const [sentence, setSentence] = useState(posts[0].sentence)
+  const [sentence, setSentence] = useState(posts[indexValue].sentence)
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
   const [model, setModel] = useState('')
@@ -48,7 +49,10 @@ function EvaluationCard({ user, posts }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
-      await Router.push('/')
+      setIndexValue(indexValue+1)
+      setURL(posts[indexValue+1].sentence)
+      setComment('')
+      // await Router.push('/')
     } catch (error) {
       console.error(error)
     }
@@ -61,6 +65,7 @@ function EvaluationCard({ user, posts }) {
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
         <Button variant="contained">Sentence</Button> 
         <p>{sentence}</p>
+        <p>{indexValue}</p>
 
         
         {
