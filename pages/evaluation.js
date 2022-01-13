@@ -7,7 +7,7 @@ import Box from '@mui/material/Box'
 import ButtonGroup from '@mui/material/ButtonGroup';
 import TextField from '@mui/material/TextField';
 import Router, { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -15,13 +15,25 @@ import Grid from '@mui/material/Grid';
 
 
 
-function EvaluationCard({ user }) {
+function EvaluationCard({ user, posts }) {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const [sentence, setSentence] = useState("Akakiiko kano kajja kufunanga ebiteeso okuva eri abalagaanyi ebikwata ku mirimu gy'enkulaakulana.")
+  const [sentence, setSentence] = useState(posts[0].sentence)
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
   const [model, setModel] = useState('')
+  const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text="+sentence)
+
+  // An input useRef will help to manage the audio whenever a user types in a new sentence
+  const inputRef = useRef()
+
+  // This function handles the sentence variable state change and also with an inputRef churns the audio output
+  const setURL = (value) => {
+    setSentence(value)
+    const urlappend2 = "http://34.132.72.167:5002/api/tts?text=" + value
+    inputRef.current.src = urlappend2
+    setSentence2(urlappend2)
+  }
 
   
   const submitData = async e => {
@@ -57,11 +69,11 @@ function EvaluationCard({ user }) {
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-                <audio controls>
-                  <source src="http://34.132.72.167:5002/api/tts?text=Akakiiko kano kajja kufunanga ebiteeso okuva eri abalagaanyi ebikwata ku mirimu gy'enkulaakulana." />
+                <audio ref={inputRef} controls>
+                  <source src={sentence2} />
                 </audio>
 
-            
+                       
                 <p>Use the radio buttons below to rate the sentence's naturalness</p>
                 <Box sx={{ mx: "auto", width: 500 }}>
                   <RadioGroup row aria-label="top" name="top" defaultValue="3" onChange={e => setMetric(parseInt(e.target.value))} value={metric}>
@@ -132,14 +144,29 @@ function EvaluationCard({ user }) {
   )
 }
 
-function Evaluation() {
+function Evaluation({posts}) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
     <Layout user={user} loading={loading}>
-      {loading ? <>Loading...</> : <EvaluationCard user={user} />}
+      {loading ? <>Loading...</> : <EvaluationCard user={user} posts={posts}/>}
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch('http://localhost:3000/api/feed')
+  const posts = await res.json()
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  }
 }
 
 export default Evaluation
