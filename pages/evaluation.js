@@ -63,9 +63,6 @@ function EvaluationCard({ user }) {
 
             
                 <p>Use the radio buttons below to rate the sentence's naturalness</p>
-                <ul>
-                  <li>The table besides will guide you</li>
-                </ul>
                 <Box sx={{ mx: "auto", width: 500 }}>
                   <RadioGroup row aria-label="top" name="top" defaultValue="3" onChange={e => setMetric(parseInt(e.target.value))} value={metric}>
                     <FormControlLabel
