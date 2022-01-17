@@ -4,48 +4,28 @@ import { useFetchUser } from '../lib/user'
 import Layout from '../components/layout'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import React, { useState, useEffect, useRef } from 'react'
+import TextField from '@mui/material/TextField';
 import Router, { useRouter } from 'next/router'
-import Grid from '@mui/material/Grid';
+import React, { useState, useEffect, useRef } from 'react'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
 
 
 
-
-// This is to handle the generate button and prevent the auto event change and deals with the database posting
-const submitMoreData = async e => {
-    e.preventDefault()
-}
-
-const push_data = async () => {
-  try {
-    name1 = user.nickname
-    email = user.name
-    model = "v1"
-    const body_new = { name1, email, sentence, metric, comment, model }
-    await fetch(`http://localhost:3000/api/post`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body_new),
-    })
-    // await Router.push('/')
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-// This is the main function to work this component out
 function TtsCard({ user }) {
 
   // These states are used to handle the sentence being typed
-  const [sentence, setSentence] = useState("Wandika wanno")
-  const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text=Wandika wanno")
+
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
+  const [model, setModel] = useState('')
+  const [sentence, setSentence] = useState("Wandika wanno")
+  const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text=Wandika wanno")
 
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
@@ -69,38 +49,41 @@ function TtsCard({ user }) {
   const playSound = audioFile => {
     audioFile.play();
   }
-  
+
+ 
+  const submitData = async e => {
+    e.preventDefault()
+    try {
+      name = user.nickname
+      email = user.name
+      model = "v1"
+      const body = { name, email, sentence, metric, comment, model }
+      await fetch(`http://localhost:3000/api/post`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      await Router.push('/')
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <>
       <h1>Enter a Luganda sentence  below and rate it </h1>
-      {
-        // Split the page into 2 sections side by side
-      }
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {
-            // First grid section with 8 units
-          }
-          <Grid item xs={12}>
 
-            <form
-                onSubmit={submitMoreData}>
-              {
-                // One can type in the sentence they want here to be translated to an audio
-              }
-              <Box >
+      <div>
+            <Box >
                 <TextField fullWidth label="sentence" id="sentence" onChange={e => setURL(e.target.value)} value={sentence} />
-              </Box>
-              
+            </Box>
+        
               {
                 // Some spacing to align out the components
               }
               <Box sx={{ paddingTop: 2 }}>
                 
               </Box>
-              {
-                // Generate Button 
-              }
+
               <Box sx={{ mx: "auto", width: 200 }}>
                 <ButtonGroup disableElevation variant="contained">
                     <Button type="submit" value="Create" onClick={() => playSound(likeAudio)} >Generate</Button>
@@ -112,6 +95,10 @@ function TtsCard({ user }) {
                 
               </Box>
 
+
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
               <Box sx={{ mx: "auto", width: 400 }}>
                 {
                   // The audio component with the inputRef
@@ -119,11 +106,11 @@ function TtsCard({ user }) {
                 <audio ref={inputRef} controls>
                   <source src={sentence2} />
                 </audio>
+
                 <p>Use the radio buttons below to rate the sentence</p>
 
-                {
-                  //Radio Buttons
-                }
+              </Box>
+
                 <Box sx={{ mx: "auto", width: 500 }}>
                   <RadioGroup row aria-label="top" name="top" defaultValue="3" onChange={e => setMetric(parseInt(e.target.value))} value={metric}>
                     <FormControlLabel
@@ -158,38 +145,36 @@ function TtsCard({ user }) {
                     />
                   </RadioGroup>
                 </Box>
-              
-              </Box>
 
-              {
-                // Comment field
-              }
-              <Box >
-                <TextField fullWidth label="comment" id="comment" onChange={e => setComment(e.target.value)} value={comment}/>
-              </Box>
+                <Box sx={{ paddingTop: 2 }}>
+                  
+                </Box>
 
-              {
-                // Some padding to the top
-              }
-              <Box sx={{ paddingTop: 2 }}>
-                
-              </Box>
 
-              <Box sx={{ mx: "auto", width: 0 }}>
-                <ButtonGroup disableElevation variant="contained">
-                  <Button type="submit" value="Create" onClick={() => push_data()}>Submit</Button>
-                </ButtonGroup>
-              </Box>
-            </form>
+                <form
+                    onSubmit={submitData}>
+                  <Box >
+                    <TextField fullWidth label="comment" id="comment" onChange={e => setComment(e.target.value)} value={comment}/>
+                  </Box>
 
+                  
+
+                  <Box sx={{ paddingTop: 2 }}>
+                    
+                  </Box>
+
+                  <Box sx={{ mx: "auto", width: 0 }}>
+                    <ButtonGroup disableElevation variant="contained">
+                      <Button type="submit" value="Create" >Submit</Button>
+                    </ButtonGroup>
+                  </Box>
+                </form>
+            </Grid>
           </Grid>
-
-
-        </Grid>
-      </Box>
-
-      
-      
+        </Box>
+         
+        
+      </div>
     </>
   )
 }

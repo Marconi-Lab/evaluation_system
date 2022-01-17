@@ -4,6 +4,7 @@ After several TTS(Text to Speech) architectures are used to buid a Luganda TTS m
 ## How to use
 Clone this repository 
 For testing purposes ensure you can run the commands below
+
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
 
 ## Application sections
