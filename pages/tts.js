@@ -26,6 +26,7 @@ function TtsCard({ user }) {
   const [model, setModel] = useState('')
   const [sentence, setSentence] = useState("Wandika wanno")
   const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text=Wandika wanno")
+  const trial = process.env.NEXT_PUBLIC_APP_TITLE
 
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
@@ -58,7 +59,7 @@ function TtsCard({ user }) {
       email = user.name
       model = "v1"
       const body = { name, email, sentence, metric, comment, model }
-      await fetch(`http://localhost:3000/api/post`, {
+      await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -71,6 +72,7 @@ function TtsCard({ user }) {
   return (
     <>
       <h1>Enter a Luganda sentence  below and rate it </h1>
+      <p>{trial}</p>
 
       <div>
             <Box >
