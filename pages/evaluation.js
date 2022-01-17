@@ -44,7 +44,7 @@ function EvaluationCard({ user, posts }) {
       email = user.name
       model = "v1"
       const body = { name, email, sentence, metric, comment, model }
-      await fetch(`http://localhost:3000/api/post`, {
+      await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
