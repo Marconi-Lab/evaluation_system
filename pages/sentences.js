@@ -36,7 +36,7 @@ function Sentences({sentences}) {
 export async function getStaticProps() {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
-    const res = await fetch('http://localhost:3000/api/feed')
+    const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
     const sentences = await res.json()
   
     // By returning { props: { posts } }, the Blog component
