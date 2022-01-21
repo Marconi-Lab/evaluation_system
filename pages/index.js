@@ -25,15 +25,12 @@ function Home() {
 
   return (
     <Layout user={user} loading={loading}>
-      <h2>Luganda Text-to-Speech(TTS) model evaluation</h2>
+      <h2>Luganda Text-to-Speech(TTS), model evaluation</h2>
 
       {loading && <p>Loading login info...</p>}
 
       {!loading && !user && (
         <>
-          <p>
-            In order to evaluate some of our models please, click  <i>Login</i>
-          </p>
           <p>The table below will guide you as you rate the various sentences</p>
           
           <TableContainer component={Paper}>
