@@ -65,7 +65,6 @@ function EvaluationCard({ user, posts }) {
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
         <Button variant="contained">Sentence</Button> 
         <p>{sentence}</p>
-        <p>{indexValue}</p>
 
         
         {
