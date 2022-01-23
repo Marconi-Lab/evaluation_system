@@ -63,84 +63,93 @@ function EvaluationCard({ user, posts }) {
 
       <div>
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
-        <Button variant="contained">Sentence</Button> 
-        <p>{sentence}</p>
+        {indexValue < 9 &&
+          <>
+          <Button variant="contained">Sentence</Button> 
+            <p>{sentence}</p>
+            
+            {
+              // This is the beginning of the grid side by side layout
+            }
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <audio ref={inputRef} controls>
+                      <source src={sentence2} />
+                    </audio>
 
-        
-        {
-          // This is the beginning of the grid side by side layout
+                          
+                    <p>Use the buttons below to rate the audio</p>
+                    <Box sx={{ mx: "auto", width: 500 }}>
+                      <RadioGroup row aria-label="top" name="top" defaultValue="3" onChange={e => setMetric(parseInt(e.target.value))} value={metric}>
+                        <FormControlLabel
+                          value="1"
+                          control={<Radio />}
+                          label="1 (Bad)"
+                          labelPlacement="top"
+                        />
+                        <FormControlLabel
+                          value="2"
+                          control={<Radio />}
+                          label="2 (Poor)"
+                          labelPlacement="top"
+                        />
+                        <FormControlLabel
+                          value="3"
+                          control={<Radio />}
+                          label="3 (Fair)"
+                          labelPlacement="top"
+                        />
+                        <FormControlLabel
+                          value="4"
+                          control={<Radio />}
+                          label="4 (Good)"
+                          labelPlacement="top"
+                        />
+                        <FormControlLabel
+                          value="5"
+                          control={<Radio />}
+                          label="5 (Excellent)"
+                          labelPlacement="top"
+                        />
+                      </RadioGroup>
+                    </Box>
+
+                    <Box sx={{ paddingTop: 2 }}>
+                      
+                    </Box>
+
+
+                    <form
+                        onSubmit={submitData}>
+                      <Box >
+                        <TextField fullWidth label="comment" id="comment" onChange={e => setComment(e.target.value)} value={comment}/>
+                      </Box>
+
+                      
+
+                      <Box sx={{ paddingTop: 2 }}>
+                        
+                      </Box>
+
+                      <Box sx={{ mx: "auto", width: 0 }}>
+                        <ButtonGroup disableElevation variant="contained">
+                          <Button type="submit" value="Create" >Submit</Button>
+                          <Button>Next</Button>
+                        </ButtonGroup>
+                      </Box>
+                    </form>
+                </Grid>
+              </Grid>
+            </Box>
+          </>
         }
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <audio ref={inputRef} controls>
-                  <source src={sentence2} />
-                </audio>
 
-                       
-                <p>Use the buttons below to rate the audio</p>
-                <Box sx={{ mx: "auto", width: 500 }}>
-                  <RadioGroup row aria-label="top" name="top" defaultValue="3" onChange={e => setMetric(parseInt(e.target.value))} value={metric}>
-                    <FormControlLabel
-                      value="1"
-                      control={<Radio />}
-                      label="1 (Bad)"
-                      labelPlacement="top"
-                    />
-                    <FormControlLabel
-                      value="2"
-                      control={<Radio />}
-                      label="2 (Poor)"
-                      labelPlacement="top"
-                    />
-                    <FormControlLabel
-                      value="3"
-                      control={<Radio />}
-                      label="3 (Fair)"
-                      labelPlacement="top"
-                    />
-                    <FormControlLabel
-                      value="4"
-                      control={<Radio />}
-                      label="4 (Good)"
-                      labelPlacement="top"
-                    />
-                    <FormControlLabel
-                      value="5"
-                      control={<Radio />}
-                      label="5 (Excellent)"
-                      labelPlacement="top"
-                    />
-                  </RadioGroup>
-                </Box>
-
-                <Box sx={{ paddingTop: 2 }}>
-                  
-                </Box>
-
-
-                <form
-                    onSubmit={submitData}>
-                  <Box >
-                    <TextField fullWidth label="comment" id="comment" onChange={e => setComment(e.target.value)} value={comment}/>
-                  </Box>
-
-                  
-
-                  <Box sx={{ paddingTop: 2 }}>
-                    
-                  </Box>
-
-                  <Box sx={{ mx: "auto", width: 0 }}>
-                    <ButtonGroup disableElevation variant="contained">
-                      <Button type="submit" value="Create" >Submit</Button>
-                      <Button>Next</Button>
-                    </ButtonGroup>
-                  </Box>
-                </form>
-            </Grid>
-          </Grid>
-        </Box>
+        {indexValue > 8 &&
+          <>
+              <h2>Thank you for this, your submissions have been noted</h2>
+          </>
+        }
          
         
       </div>
