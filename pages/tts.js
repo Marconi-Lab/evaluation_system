@@ -26,7 +26,6 @@ function TtsCard({ user }) {
   const [model, setModel] = useState('')
   const [sentence, setSentence] = useState("Wandika wanno")
   const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text=Wandika wanno")
-  const trial = process.env.NEXT_PUBLIC_APP_TITLE
 
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
@@ -72,7 +71,6 @@ function TtsCard({ user }) {
   return (
     <>
       <h1>Enter a Luganda sentence  below and rate it </h1>
-      <p>{trial}</p>
 
       <div>
             <Box >
@@ -93,7 +91,7 @@ function TtsCard({ user }) {
               
               </Box>
 
-              <Box sx={{ paddingTop: 2 }}>
+              <Box sx={{ paddingTop: 4 }}>
                 
               </Box>
 
@@ -109,7 +107,7 @@ function TtsCard({ user }) {
                   <source src={sentence2} />
                 </audio>
 
-                <p>Use the radio buttons below to rate the sentence</p>
+                <p>Use the buttons below to rate the sentence</p>
 
               </Box>
 
