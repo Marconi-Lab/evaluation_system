@@ -39,7 +39,7 @@ function TtsCard({ user }) {
   }
 
   // This is the initial Audio component value, will change after the generate button is clicked
-  const urlappend = "http://34.132.72.167:5002/api/tts?text="
+  const urlappend = process.env.NEXT_MODEL_V1_IP
 
   // Basic appending of a sentence to the above value
   var newUrl = urlappend + sentence
