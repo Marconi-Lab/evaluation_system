@@ -1,9 +1,10 @@
 // posts will be populated at build time by getStaticProps()
+import { PrismaClient } from '@prisma/client'
 function Blog({ posts }) {
     return (
       <ul>
         {posts.map((post) => (
-          <li>{post.sentence}</li>
+          <li key={post.sentence}>{post.sentence}</li>
         ))}
       </ul>
     )
@@ -15,8 +16,10 @@ function Blog({ posts }) {
   export async function getStaticProps() {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
-    const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
-    const posts = await res.json()
+     const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
+     const posts = await res.json()
+    //const prisma = new PrismaClient()
+    //const posts = await prisma.sentences.findMany()
   
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
