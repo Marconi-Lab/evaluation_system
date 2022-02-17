@@ -1,0 +1,16 @@
+[
+    {
+        "id":1,
+        "model_architecture":"tacotron2",
+        "model_version":"v0.0.1",
+        "training_dataset_size":"21 hours,40 minutes",
+        "frequency":22050,
+        "train_steps":320000,
+        "inference_wavfile_endpoint":"http://0.0.0.0:5002/api/tts",
+        "model_file_path":"path/to/config.json",
+        "model_config_file":"Users/Jerry/Desktop/Models/config.json",
+        "vocoder_file_path":"path/to/model.pth.tar",
+        "vocoder_config_path":"path/to/config.json",
+        "using_gpu":"False"
+    }
+]

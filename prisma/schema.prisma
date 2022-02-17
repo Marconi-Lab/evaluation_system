@@ -1,14 +1,15 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "sqlite"
   url      = "file:./dev.db"
 }
+
+generator client {
+  provider = "prisma-client-js"
+}
+
 
 model User {
   id    Int     @id @default(autoincrement())
@@ -25,4 +26,57 @@ model Sentences {
   id    Int     @id @default(autoincrement())
   createdAt DateTime @default(now())
   sentence  String?
+}
+
+model Evaluation_db_table {
+  id Int @id @default(autoincrement())
+  model_version_id Int
+  inference_time Float
+  rtf Float
+  wav_length_seconds Float
+  evaluation_time Float
+  rating_no Int
+  comment String?
+  b64_audio_string String?
+  acceptance_tag Boolean
+  sentences_db_table Sentences_db_table? @relation(fields: [Sentences_db_tableId], references: [id])
+  Sentences_db_tableId Int
+  individuals_data_db_table Individuals_data_db_table? @relation(fields: [Individuals_data_db_tableId], references: [id])
+  Individuals_data_db_tableId Int
+}
+
+model User_input_sentences_db_table {
+  id Int @id @default(autoincrement())
+  model_version_id Int
+  text String
+  inference_time Float
+  rtf Float
+  wav_length_seconds Float
+  evaluation_time Float
+  rating_no Int
+  comment String?
+  b64_audio_string String?
+  acceptance_tag Boolean
+  Individuals_data_db_table Individuals_data_db_table? @relation(fields: [Individuals_data_db_tableId], references: [id])
+  Individuals_data_db_tableId Int
+}
+
+model Individuals_data_db_table {
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String 
+  evaluated_sentences_no Int @default(0)
+  evaluated_models_array String
+  total_evaluated_models Int
+  evaluation_status Boolean
+  evaluation_individual Evaluation_db_table[]
+  user_input_individual User_input_sentences_db_table[]
+}
+
+model Sentences_db_table {
+  id Int @id @default(autoincrement())
+  sentence String
+  path String?
+  createdAt DateTime @default(now())
+  individuals_sentence Evaluation_db_table[]
 }
