@@ -12,14 +12,15 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
+import prisma from '../lib/prisma'
 
 
 
-function EvaluationCard({ user, posts }) {
+function EvaluationCard({ user, sentences }) {
   const [email, setEmail] = useState('')
   const [indexValue, setIndexValue] = useState(0)
   const [name, setName] = useState('')
-  const [sentence, setSentence] = useState(posts[indexValue].sentence)
+  const [sentence, setSentence] = useState(sentences[indexValue].sentence)
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
   const [model, setModel] = useState('')
@@ -36,10 +37,7 @@ function EvaluationCard({ user, posts }) {
     setSentence2(urlappend2)
   }
 
-  
-  const submitData = async e => {
-    e.preventDefault()
-    try {
+  /* 
       name = user.nickname
       email = user.name
       model = "v1"
@@ -49,8 +47,26 @@ function EvaluationCard({ user, posts }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
+  */
+  const submitData = async e => {
+    e.preventDefault()
+    try {
+      name = user.nickname
+      email = user.name
+      model = 1
+      let inference_time = 1.5
+      let rtf = 1.5
+      let wav_length_seconds = 1.5
+      let evaluation_time = 2
+      let sentence_num = indexValue + 1
+      const body = { name, email, sentence, metric, comment, model, inference_time, rtf, wav_length_seconds, evaluation_time, sentence_num }
+      await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
       setIndexValue(indexValue+1)
-      setURL(posts[indexValue+1].sentence)
+      setURL(sentences[indexValue+1].sentence)
       setComment('')
       // await Router.push('/')
     } catch (error) {
@@ -157,12 +173,12 @@ function EvaluationCard({ user, posts }) {
   )
 }
 
-function Evaluation({posts}) {
+function Evaluation({sentences}) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
     <Layout user={user} loading={loading}>
-      {loading ? <>Loading...</> : <EvaluationCard user={user} posts={posts}/>}
+      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences}/>}
     </Layout>
   )
 }
@@ -170,14 +186,17 @@ function Evaluation({posts}) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
-  const posts = await res.json()
+  //const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
+  //const posts = await res.json()
+  const res = await prisma.sentences_db_table.findMany()
+  const res1 = JSON.stringify(res)
+  const sentences = JSON.parse(res1)
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      posts,
+      sentences,
     },
   }
 }

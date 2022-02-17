@@ -3,6 +3,7 @@
 import { useFetchUser } from '../lib/user'
 import Layout from '../components/layout'
 import { Button } from '@mui/material'
+import prisma from '../lib/prisma'
 
 
 
@@ -36,8 +37,12 @@ function Sentences({sentences}) {
 export async function getStaticProps() {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
-    const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
-    const sentences = await res.json()
+    // const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
+    //const sentences = await res.json()
+
+    const res = await prisma.sentences_db_table.findMany()
+    const res1 = JSON.stringify(res)
+    const sentences = JSON.parse(res1)
   
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
