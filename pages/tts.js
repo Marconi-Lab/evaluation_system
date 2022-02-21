@@ -56,9 +56,13 @@ function TtsCard({ user }) {
     try {
       name = user.nickname
       email = user.name
-      model = "v1"
-      const body = { name, email, sentence, metric, comment, model }
-      await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL, {
+      model = 1
+      let inference_time = 1.5
+      let rtf = 1.5
+      let wav_length_seconds = 1.5
+      let evaluation_time = 2
+      const body = { name, email, sentence, metric, comment, model, inference_time, rtf, wav_length_seconds, evaluation_time}
+      await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL_USER_SENTENCE, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

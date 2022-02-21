@@ -39,10 +39,10 @@ model Evaluation_db_table {
   comment String?
   b64_audio_string String?
   acceptance_tag Boolean
-  sentences_db_table Sentences_db_table? @relation(fields: [Sentences_db_tableId], references: [id])
-  Sentences_db_tableId Int
-  individuals_data_db_table Individuals_data_db_table? @relation(fields: [Individuals_data_db_tableId], references: [id])
-  Individuals_data_db_tableId Int
+  sentences_db_table Sentences_db_table? @relation(fields: [sentences_db_tableId], references: [id])
+  sentences_db_tableId Int?
+  individuals_data_db_table Individuals_data_db_table? @relation(fields: [individuals_data_db_tableEmail], references: [email])
+  individuals_data_db_tableEmail String?
 }
 
 model User_input_sentences_db_table {
@@ -57,13 +57,12 @@ model User_input_sentences_db_table {
   comment String?
   b64_audio_string String?
   acceptance_tag Boolean
-  Individuals_data_db_table Individuals_data_db_table? @relation(fields: [Individuals_data_db_tableId], references: [id])
-  Individuals_data_db_tableId Int
+  individuals_data_db_table Individuals_data_db_table? @relation(fields: [individuals_data_db_tableEmail], references: [email])
+  individuals_data_db_tableEmail String?
 }
 
 model Individuals_data_db_table {
-  id Int @id @default(autoincrement())
-  email String @unique
+  email String @id @unique
   name String 
   evaluated_sentences_no Int @default(0)
   evaluated_models_array String
