@@ -59,12 +59,22 @@ function EvaluationCard({ user, sentences }) {
       let wav_length_seconds = 1.5
       let evaluation_time = 2
       let sentence_num = indexValue + 1
-      const body = { name, email, sentence, metric, comment, model, inference_time, rtf, wav_length_seconds, evaluation_time, sentence_num }
+      let other_body = { sentence }
+      //let response1 = await fetch('http://34.132.72.167:5005/api/evalstats?text=Wandiika')
+      let response = await fetch("/api/stats", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(other_body),
+      })
+      let newv = await response.json();
+      const body = { name, email, sentence, metric, comment, model, inference_time, rtf, wav_length_seconds, evaluation_time, sentence_num, newv }
+      console.log(body)
       await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
+      console.log(newv)
       setIndexValue(indexValue+1)
       setURL(sentences[indexValue+1].sentence)
       setComment('')
@@ -173,7 +183,7 @@ function EvaluationCard({ user, sentences }) {
   )
 }
 
-function Evaluation({sentences}) {
+function Evaluation({ sentences }) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
@@ -200,5 +210,6 @@ export async function getStaticProps() {
     },
   }
 }
+
 
 export default Evaluation
