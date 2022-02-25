@@ -23,6 +23,7 @@ function EvaluationCard({ user, sentences }) {
   const [sentence, setSentence] = useState(sentences[indexValue].sentence)
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
+  const [ms_time_on_start, setMs_time_on_start] = useState(Date.now())
   const [model, setModel] = useState('')
   const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text="+sentence)
 
@@ -51,10 +52,11 @@ function EvaluationCard({ user, sentences }) {
   const submitData = async e => {
     e.preventDefault()
     try {
+      let ms_time_on_submit = Date.now();
+      let evaluation_time = (ms_time_on_submit - ms_time_on_start)/1000
       name = user.nickname
       email = user.name
       model = 1
-      let evaluation_time = 2
       let sentence_num = indexValue + 1
       let other_body = { sentence }
       //let response1 = await fetch('http://34.132.72.167:5005/api/evalstats?text=Wandiika')
@@ -75,6 +77,7 @@ function EvaluationCard({ user, sentences }) {
       setIndexValue(indexValue+1)
       setURL(sentences[indexValue+1].sentence)
       setComment('')
+      setMs_time_on_start(Date.now())
       // await Router.push('/')
     } catch (error) {
       console.error(error)

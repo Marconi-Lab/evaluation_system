@@ -5,6 +5,12 @@ import prisma from '../../../lib/prisma'
 export default async function handle(req, res) {
   const { name, email, sentence, metric, comment, model, evaluation_time, sentence_num, sentence_info} = req.body
   const all_sentence_info = JSON.parse(sentence_info)
+  const total_acceptance_time_req = all_sentence_info["process_t"] + all_sentence_info["wav_length"]
+  if (evaluation_time >= total_acceptance_time_req){
+    var accept_tag = true
+  }else{
+    var accept_tag = false
+  }
   const result = await prisma.evaluation_db_table.create({
     data: {
       model_version_id: model,
@@ -15,7 +21,7 @@ export default async function handle(req, res) {
       rating_no:metric,
       comment: comment,
       b64_audio_string:null,
-      acceptance_tag:true,
+      acceptance_tag:accept_tag,
       sentences_db_table: {
         connect: { id: sentence_num },
       },
