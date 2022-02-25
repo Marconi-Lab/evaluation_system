@@ -1,7 +1,8 @@
 export default async function handle(req, res) {
-    let { body_three } = req.body
-    let route = 'http://34.132.72.167:5005/api/evalstats?text=' + body_three
-    const response = await fetch(route)
-    const posts = await response.json()
-    res.status(200).json({ route })
+    let { sentence } = req.body
+    let route = 'http://34.132.72.167:5002/api/evalstats?text=' + sentence
+    let response = await fetch(route)
+    let sentence_info1 = await response.json()
+    let sentence_info = JSON.stringify(sentence_info1)
+    res.status(200).json({ sentence_info })
 }
