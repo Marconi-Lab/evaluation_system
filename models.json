@@ -1,5 +1,5 @@
-[
-    {
+{
+    "tts_models": {
         "id":1,
         "model_architecture":"tacotron2",
         "model_version":"v0.0.1",
@@ -13,4 +13,4 @@
         "vocoder_config_path":"path/to/config.json",
         "using_gpu":"False"
     }
-]
+}

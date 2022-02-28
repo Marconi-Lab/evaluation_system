@@ -23,6 +23,7 @@ function EvaluationCard({ user, sentences }) {
   const [sentence, setSentence] = useState(sentences[indexValue].sentence)
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
+  const [ms_time_on_start, setMs_time_on_start] = useState(Date.now())
   const [model, setModel] = useState('')
   const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text="+sentence)
 
@@ -51,15 +52,23 @@ function EvaluationCard({ user, sentences }) {
   const submitData = async e => {
     e.preventDefault()
     try {
+      let ms_time_on_submit = Date.now();
+      let evaluation_time = (ms_time_on_submit - ms_time_on_start)/1000
       name = user.nickname
       email = user.name
       model = 1
-      let inference_time = 1.5
-      let rtf = 1.5
-      let wav_length_seconds = 1.5
-      let evaluation_time = 2
       let sentence_num = indexValue + 1
-      const body = { name, email, sentence, metric, comment, model, inference_time, rtf, wav_length_seconds, evaluation_time, sentence_num }
+      let other_body = { sentence }
+      //let response1 = await fetch('http://34.132.72.167:5005/api/evalstats?text=Wandiika')
+      let response = await fetch("/api/stats", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(other_body),
+      })
+      let sentence_info = await response.json();
+      //let sentence_info = JSON.stringify(sentence_info1)
+      const body1 = { name, email, sentence, metric, comment, model, evaluation_time, sentence_num}
+      let body = Object.assign(body1, sentence_info)
       await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -68,6 +77,7 @@ function EvaluationCard({ user, sentences }) {
       setIndexValue(indexValue+1)
       setURL(sentences[indexValue+1].sentence)
       setComment('')
+      setMs_time_on_start(Date.now())
       // await Router.push('/')
     } catch (error) {
       console.error(error)
@@ -173,7 +183,7 @@ function EvaluationCard({ user, sentences }) {
   )
 }
 
-function Evaluation({sentences}) {
+function Evaluation({ sentences }) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
@@ -200,5 +210,6 @@ export async function getStaticProps() {
     },
   }
 }
+
 
 export default Evaluation

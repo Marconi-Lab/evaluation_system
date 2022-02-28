@@ -43,6 +43,7 @@ model Evaluation_db_table {
   sentences_db_tableId Int?
   individuals_data_db_table Individuals_data_db_table? @relation(fields: [individuals_data_db_tableEmail], references: [email])
   individuals_data_db_tableEmail String?
+  createdAt DateTime @default(now())
 }
 
 model User_input_sentences_db_table {
@@ -59,6 +60,7 @@ model User_input_sentences_db_table {
   acceptance_tag Boolean
   individuals_data_db_table Individuals_data_db_table? @relation(fields: [individuals_data_db_tableEmail], references: [email])
   individuals_data_db_tableEmail String?
+  createdAt DateTime @default(now())
 }
 
 model Individuals_data_db_table {
@@ -70,6 +72,7 @@ model Individuals_data_db_table {
   evaluation_status Boolean
   evaluation_individual Evaluation_db_table[]
   user_input_individual User_input_sentences_db_table[]
+  createdAt DateTime @default(now())
 }
 
 model Sentences_db_table {

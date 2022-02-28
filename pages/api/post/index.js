@@ -3,18 +3,25 @@ import prisma from '../../../lib/prisma'
 // POST /api/post
 // Updated fields in body: name, email, sentence, metric, comment, model
 export default async function handle(req, res) {
-  const { name, email, sentence, metric, comment, model, inference_time, rtf, wav_length_seconds, evaluation_time, sentence_num } = req.body
+  const { name, email, sentence, metric, comment, model, evaluation_time, sentence_num, sentence_info} = req.body
+  const all_sentence_info = JSON.parse(sentence_info)
+  const total_acceptance_time_req = all_sentence_info["process_t"] + all_sentence_info["wav_length"]
+  if (evaluation_time >= total_acceptance_time_req){
+    var accept_tag = true
+  }else{
+    var accept_tag = false
+  }
   const result = await prisma.evaluation_db_table.create({
     data: {
       model_version_id: model,
-      inference_time: inference_time,
-      rtf:rtf,
-      wav_length_seconds:wav_length_seconds,
+      inference_time: all_sentence_info["process_t"],
+      rtf:all_sentence_info["rtf_f"],
+      wav_length_seconds:all_sentence_info["wav_length"],
       evaluation_time:evaluation_time,
       rating_no:metric,
       comment: comment,
       b64_audio_string:null,
-      acceptance_tag:true,
+      acceptance_tag:accept_tag,
       sentences_db_table: {
         connect: { id: sentence_num },
       },
@@ -27,7 +34,7 @@ export default async function handle(req, res) {
             evaluated_sentences_no:1,
             evaluated_models_array:"['v2']",
             total_evaluated_models:1,
-            evaluation_status:true,
+            evaluation_status:false,
           },
         }
       },
