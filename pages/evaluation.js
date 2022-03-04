@@ -38,6 +38,18 @@ function EvaluationCard({ user, sentences }) {
     setSentence2(urlappend2)
   }
 
+  const sentence_number = async () => {
+    email = user.name
+    let response_sentence_num = await fetch("/api/display", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(email),
+    })
+    let sentence_info_num = await response_sentence_num.json();
+    return sentence_info_num.evaluated_sentences_no
+  }
+
+  console.log(sentence_number);
   /* 
       name = user.nickname
       email = user.name
@@ -49,6 +61,7 @@ function EvaluationCard({ user, sentences }) {
         body: JSON.stringify(body),
       })
   */
+ 
   const submitData = async e => {
     e.preventDefault()
     try {
@@ -206,7 +219,7 @@ export async function getStaticProps() {
   // will receive `posts` as a prop at build time
   return {
     props: {
-      sentences,
+      sentences
     },
   }
 }
