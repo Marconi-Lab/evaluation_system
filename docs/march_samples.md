@@ -37,6 +37,7 @@
             <td>Tolya wadde okubaaga ekinyonyi ekifudde oba ekirwadde.</td>
             <td><audio controls="" preload="none"><source src="samples/sample04-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample04-vits.wav"></audio></td>
+            <td><audio controls="" preload="none"><source src="vits_samples/sample04-vits_335k.wav"></audio></td>
           </tr>
           <tr>
             <td>05</td>
