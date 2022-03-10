@@ -110,7 +110,7 @@ function EvaluationCard({ user, sentences }) {
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
         {indexValue < 9 &&
           <>
-            <Card sx={{ minWidth: 275 }}> 
+            <Card sx={{ minWidth: 275, bgcolor: 'text.primary', color: 'background.paper' }}> 
               <CardContent>
 
               <Typography variant="h5" component="div" gutterBottom>
@@ -126,14 +126,24 @@ function EvaluationCard({ user, sentences }) {
             {
               // This is the beginning of the grid side by side layout
             }
+
+            <Card sx={{ minWidth: 275 }}> 
+              <CardContent>
+
+              <div align="center">
+                  <audio ref={inputRef} controls align="center">
+                    <source src={sentence2} />
+                  </audio>
+              </div> 
+
+              </CardContent>
+
+            </Card>
+
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                <div align="center">
-                    <audio ref={inputRef} controls align="center">
-                      <source src={sentence2} />
-                    </audio>
-                </div>                  
+                                 
                           
                     <p>Use the buttons below to rate the audio</p>
                     <Box sx={{ mx: "auto", width: 500 }}>
