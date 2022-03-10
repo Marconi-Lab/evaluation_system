@@ -33,6 +33,9 @@ export async function getStaticProps() {
     _avg: {
       rating_no: true,
     },
+    where: {
+      acceptance_tag: true,
+    },
   })
 
   //console.log('Average age:' + aggregations._avg.age)
