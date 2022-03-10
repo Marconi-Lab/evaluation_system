@@ -14,6 +14,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import prisma from '../lib/prisma'
 import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 
 
@@ -107,10 +110,18 @@ function EvaluationCard({ user, sentences }) {
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
         {indexValue < 9 &&
           <>
-          <Button variant="contained">Sentence</Button> 
-          <Typography variant="h5" component="div" gutterBottom>
-            {sentence}
-          </Typography>
+            <Card sx={{ minWidth: 275 }}> 
+              <CardContent>
+
+              <Typography variant="h5" component="div" gutterBottom>
+                {sentence}
+              </Typography>
+
+              </CardContent>
+
+            </Card>
+
+            
             
             {
               // This is the beginning of the grid side by side layout
