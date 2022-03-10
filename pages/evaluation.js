@@ -13,6 +13,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import prisma from '../lib/prisma'
+import Typography from '@mui/material/Typography';
 
 
 
@@ -98,14 +99,18 @@ function EvaluationCard({ user, sentences }) {
   }
   return (
     <>
-      <h1>Evaluate</h1>
+      <Typography variant="h4" component="div" gutterBottom>
+          Evaluate
+      </Typography>
 
       <div>
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
         {indexValue < 9 &&
           <>
           <Button variant="contained">Sentence</Button> 
-            <p>{sentence}</p>
+          <Typography variant="h5" component="div" gutterBottom>
+            {sentence}
+          </Typography>
             
             {
               // This is the beginning of the grid side by side layout
