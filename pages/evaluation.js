@@ -118,10 +118,11 @@ function EvaluationCard({ user, sentences }) {
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <audio ref={inputRef} controls>
+                <div align="center">
+                    <audio ref={inputRef} controls align="center">
                       <source src={sentence2} />
                     </audio>
-
+                </div>                  
                           
                     <p>Use the buttons below to rate the audio</p>
                     <Box sx={{ mx: "auto", width: 500 }}>
