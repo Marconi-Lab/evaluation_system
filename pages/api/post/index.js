@@ -44,5 +44,30 @@ export default async function handle(req, res) {
       sentences_db_table:true,
     },
   })
+
+  const user = await prisma.evaluation_db_table.update({
+    where: { id: result.id },
+    data: {
+      individuals_data_db_table: {
+        upsert: {
+          create: {
+            email: email,
+            name: name,
+            evaluated_sentences_no:1,
+            evaluated_models_array:"['v2']",
+            total_evaluated_models:1,
+            evaluation_status:false,
+          },
+          update: {
+            evaluated_sentences_no:2,
+            evaluated_models_array:"['v2']",
+            total_evaluated_models:1,
+            evaluation_status:false,
+          }
+        },
+      },
+    },
+  })
+
   res.json(result)
 }
