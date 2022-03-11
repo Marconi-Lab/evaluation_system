@@ -20,10 +20,10 @@ import CardContent from '@mui/material/CardContent';
 
 
 
-function EvaluationCard({ user, sentences, data }) {
+function EvaluationCard({ user, sentences, data, data2}) {
 
-
-  
+  //const models_to_use = import('../models.json')
+  const verify = data2
   const [email, setEmail] = useState('')
   //const [indexValue, setIndexValue] = useState(0)
   var x = 0
@@ -112,6 +112,7 @@ function EvaluationCard({ user, sentences, data }) {
 
       <div>
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
+
 
         {indexValue < 9 &&
           <>
@@ -229,12 +230,12 @@ function EvaluationCard({ user, sentences, data }) {
   )
 }
 
-function Evaluation({ sentences, data }) {
+function Evaluation({ sentences, data, data2}) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
     <Layout user={user} loading={loading}>
-      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences} data={data}/>}
+      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences} data={data} data2={data2}/>}
     </Layout>
   )
 }
@@ -252,12 +253,19 @@ export async function getServerSideProps() {
   const res1_data = JSON.stringify(data_res)
   const data = JSON.parse(res1_data)
 
+  const res2 = await fetch('http://localhost:3000/api/get_models')
+  const res1_data2 = await JSON.stringify(res2)
+  const data2 = await JSON.parse(res1_data2)
+  //const data2 = JSON.stringify(data28)
+
+
+
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      sentences, data
+      sentences, data, data2
     },
   }
 }
