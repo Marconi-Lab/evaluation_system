@@ -1,4 +1,4 @@
-> VITS: 63k steps trained and 170k steps comparison
+> VITS: 63k,170k,355k steps trained and 610k steps comparison
 <dl>
     <table>
         <thead>
