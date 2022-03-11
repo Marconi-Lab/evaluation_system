@@ -11,11 +11,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 
-function About({ average, average_rtf }) {
+function About({ average, average_rtf, total_count }) {
   const { user, loading } = useFetchUser({ required: true })
 
-  function createData(Model_name, MOS, RTF) {
-    return { Model_name, MOS, RTF};
+  function createData(Model_name, MOS, RTF, sentences) {
+    return { Model_name, MOS, RTF, sentences};
   }
 
   const single_mos = { average }
@@ -37,6 +37,7 @@ function About({ average, average_rtf }) {
               <TableCell>Model Version</TableCell>
               <TableCell align="center">MOS</TableCell>
               <TableCell align="center">RTF</TableCell>
+              <TableCell align="center">Accepted Submissions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -58,6 +59,11 @@ function About({ average, average_rtf }) {
                 <TableCell align="center">
                   <Typography variant="overline" display="block" gutterBottom>
                     { average_rtf }
+                  </Typography>
+                </TableCell>
+                <TableCell align="center">
+                  <Typography variant="overline" display="block" gutterBottom>
+                    { total_count }
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -82,6 +88,9 @@ export async function getStaticProps() {
       rating_no: true,
       rtf: true,
     },
+    _count:{
+      rating_no: true,
+    },
     where: {
       acceptance_tag: true,
     },
@@ -94,11 +103,14 @@ export async function getStaticProps() {
   const res1_rtf = JSON.stringify(res._avg.rtf)
   const average_rtf = JSON.parse(res1_rtf)
 
+  const res1_count = JSON.stringify(res._count.rating_no)
+  const total_count = JSON.parse(res1_count)
+
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      average, average_rtf
+      average, average_rtf, total_count
     },
   }
 }
