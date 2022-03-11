@@ -112,10 +112,7 @@ function EvaluationCard({ user, sentences, data }) {
 
       <div>
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
-        
-<p>
-  { x }
-</p>
+
         {indexValue < 9 &&
           <>
             <Card sx={{ minWidth: 275, bgcolor: 'text.primary', color: 'background.paper' }}> 
