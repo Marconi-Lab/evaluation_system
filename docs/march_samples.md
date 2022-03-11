@@ -8,6 +8,7 @@
             <th>63k Steps</th>
             <th>170k Steps</th>
             <th>355k Steps</th>
+            <th>610k Steps</th>
           </tr>
         </thead>
         <tbody>
