@@ -17,6 +17,7 @@
             <td><audio controls="" preload="none"><source src="samples/sample01-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample01-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample01-vits_335k.wav"></audio></td>
+            <td><audio controls="" preload="none"><source src="vits_samples/sample01-vits_610k.wav"></audio></td>
           </tr>
           <tr>
             <td>02</td>
@@ -24,6 +25,7 @@
             <td><audio controls="" preload="none"><source src="samples/sample02-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample02-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample02-vits_335k.wav"></audio></td>
+            <td><audio controls="" preload="none"><source src="vits_samples/sample02-vits_610k.wav"></audio></td>
           </tr>
           <tr>
             <td>03</td>
@@ -31,6 +33,7 @@
             <td><audio controls="" preload="none"><source src="samples/sample03-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample03-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample03-vits_335k.wav"></audio></td>
+            <td><audio controls="" preload="none"><source src="vits_samples/sample03-vits_610k.wav"></audio></td>
           </tr>
           <tr>
             <td>04</td>
@@ -38,6 +41,7 @@
             <td><audio controls="" preload="none"><source src="samples/sample04-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample04-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample04-vits_335k.wav"></audio></td>
+            <td><audio controls="" preload="none"><source src="vits_samples/sample04-vits_610k.wav"></audio></td>
           </tr>
           <tr>
             <td>05</td>
@@ -45,6 +49,7 @@
             <td><audio controls="" preload="none"><source src="samples/sample05-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample05-vits.wav"></audio></td>
             <td><audio controls="" preload="none"><source src="vits_samples/sample05-vits_335k.wav"></audio></td>
+            <td><audio controls="" preload="none"><source src="vits_samples/sample05-vits_610k.wav"></audio></td>
           </tr>
         </tbody>
         </table>
