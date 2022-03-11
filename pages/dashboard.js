@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 
-function About({ average, average_rtf, total_count }) {
+function About({ average, average_rtf, total_count, evaluators }) {
   const { user, loading } = useFetchUser({ required: true })
 
   function createData(Model_name, MOS, RTF, sentences) {
@@ -72,6 +72,10 @@ function About({ average, average_rtf, total_count }) {
         </Table>
       </TableContainer>
 
+      <Typography variant="h6" component="div" gutterBottom>
+          From { evaluators } evaluator(s)  
+      </Typography>
+
 
     </Layout>
   )
@@ -96,6 +100,12 @@ export async function getStaticProps() {
     },
   })
 
+  const res_c = await prisma.individuals_data_db_table.aggregate({
+    _count:{
+      name: true,
+    },
+  })
+
   //console.log('Average age:' + aggregations._avg.age)
   const res1 = JSON.stringify(res._avg.rating_no)
   const average = JSON.parse(res1)
@@ -106,11 +116,14 @@ export async function getStaticProps() {
   const res1_count = JSON.stringify(res._count.rating_no)
   const total_count = JSON.parse(res1_count)
 
+  const res1_eval = JSON.stringify(res_c._count.name)
+  const evaluators = JSON.parse(res1_eval)
+
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      average, average_rtf, total_count
+      average, average_rtf, total_count, evaluators
     },
   }
 }
