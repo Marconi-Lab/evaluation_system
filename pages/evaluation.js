@@ -20,12 +20,24 @@ import CardContent from '@mui/material/CardContent';
 
 
 
-function EvaluationCard({ user, sentences }) {
+function EvaluationCard({ user, sentences, data }) {
 
 
-
+  
   const [email, setEmail] = useState('')
-  const [indexValue, setIndexValue] = useState(0)
+  //const [indexValue, setIndexValue] = useState(0)
+  var x = 0
+  for (let i = 0; i < data.length; i++) {
+    //var sector = user.email
+    var gheto = data[i].name
+    if(gheto==user.nickname){
+      const sentences_stop = data[i].evaluated_sentences_no
+      var b = `${sentences_stop}`
+      var x = Number(b)
+      //setIndexValue(x)
+    }
+  }
+  const [indexValue, setIndexValue] = useState(x)
   const [name, setName] = useState('')
   const [sentence, setSentence] = useState(sentences[indexValue].sentence)
   const [metric, setMetric] = useState(1)
@@ -56,6 +68,7 @@ function EvaluationCard({ user, sentences }) {
         body: JSON.stringify(body),
       })
   */
+
  
   const submitData = async e => {
     e.preventDefault()
@@ -100,7 +113,9 @@ function EvaluationCard({ user, sentences }) {
       <div>
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
         
-
+<p>
+  { x }
+</p>
         {indexValue < 9 &&
           <>
             <Card sx={{ minWidth: 275, bgcolor: 'text.primary', color: 'background.paper' }}> 
@@ -217,12 +232,12 @@ function EvaluationCard({ user, sentences }) {
   )
 }
 
-function Evaluation({ sentences }) {
+function Evaluation({ sentences, data }) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
     <Layout user={user} loading={loading}>
-      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences}/>}
+      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences} data={data}/>}
     </Layout>
   )
 }
@@ -236,12 +251,16 @@ export async function getServerSideProps() {
   const res1 = JSON.stringify(res)
   const sentences = JSON.parse(res1)
 
+  const data_res = await prisma.individuals_data_db_table.findMany()
+  const res1_data = JSON.stringify(data_res)
+  const data = JSON.parse(res1_data)
+
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      sentences
+      sentences, data
     },
   }
 }
