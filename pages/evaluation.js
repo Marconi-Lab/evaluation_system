@@ -21,6 +21,9 @@ import CardContent from '@mui/material/CardContent';
 
 
 function EvaluationCard({ user, sentences }) {
+
+
+
   const [email, setEmail] = useState('')
   const [indexValue, setIndexValue] = useState(0)
   const [name, setName] = useState('')
@@ -42,18 +45,6 @@ function EvaluationCard({ user, sentences }) {
     setSentence2(urlappend2)
   }
 
-  const sentence_number = async () => {
-    email = user.name
-    let response_sentence_num = await fetch("/api/display", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(email),
-    })
-    let sentence_info_num = await response_sentence_num.json();
-    return sentence_info_num.evaluated_sentences_no
-  }
-
-  console.log(sentence_number);
   /* 
       name = user.nickname
       email = user.name
@@ -108,6 +99,8 @@ function EvaluationCard({ user, sentences }) {
 
       <div>
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
+        
+
         {indexValue < 9 &&
           <>
             <Card sx={{ minWidth: 275, bgcolor: 'text.primary', color: 'background.paper' }}> 
@@ -200,8 +193,7 @@ function EvaluationCard({ user, sentences }) {
 
                       <Box sx={{ mx: "auto", width: 0 }}>
                         <ButtonGroup disableElevation variant="contained">
-                          <Button type="submit" value="Create" >Submit</Button>
-                          <Button>Next</Button>
+                            <Button type="submit" value="Create" >Submit</Button>
                         </ButtonGroup>
                       </Box>
                     </form>
@@ -213,7 +205,9 @@ function EvaluationCard({ user, sentences }) {
 
         {indexValue > 8 &&
           <>
-              <h2>Thank you for this, your submissions have been noted</h2>
+              <Typography variant="h2" component="div" gutterBottom>
+                Thank you for this, your submissions have been noted.
+              </Typography>
           </>
         }
          
@@ -233,7 +227,7 @@ function Evaluation({ sentences }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   //const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
@@ -241,6 +235,7 @@ export async function getStaticProps() {
   const res = await prisma.sentences_db_table.findMany()
   const res1 = JSON.stringify(res)
   const sentences = JSON.parse(res1)
+
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -250,6 +245,7 @@ export async function getStaticProps() {
     },
   }
 }
+
 
 
 export default Evaluation

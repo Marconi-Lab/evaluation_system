@@ -45,6 +45,20 @@ export default async function handle(req, res) {
     },
   })
 
+  const result_to_update = await prisma.individuals_data_db_table.findUnique({
+    where: {
+      email: email,
+    },
+  })
+
+  var updated_qns = result_to_update.evaluated_sentences_no + 1
+
+  if (updated_qns >= 10 ){
+    var evaluation_status_tag = true
+  }else{
+    var evaluation_status_tag = false
+  }
+
   const user = await prisma.evaluation_db_table.update({
     where: { id: result.id },
     data: {
@@ -56,13 +70,13 @@ export default async function handle(req, res) {
             evaluated_sentences_no:1,
             evaluated_models_array:"['v2']",
             total_evaluated_models:1,
-            evaluation_status:false,
+            evaluation_status:evaluation_status_tag,
           },
           update: {
-            evaluated_sentences_no:2,
+            evaluated_sentences_no:updated_qns,
             evaluated_models_array:"['v2']",
             total_evaluated_models:1,
-            evaluation_status:false,
+            evaluation_status:evaluation_status_tag,
           }
         },
       },
