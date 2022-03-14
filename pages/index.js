@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 function createData(rating, quality, distortion) {
   return { rating, quality, distortion};
@@ -25,12 +26,16 @@ function Home() {
 
   return (
     <Layout user={user} loading={loading}>
-      <h2>Luganda Text-to-Speech(TTS), model evaluation</h2>
+
+        <Typography variant="h5" component="div" gutterBottom>
+          Luganda Text-to-Speech(TTS), model evaluation
+        </Typography>
 
       {loading && <p>Loading login info...</p>}
 
       {!loading && !user && (
         <>
+          
           <p>The table below will guide you as you rate the various sentences</p>
           
           <TableContainer component={Paper}>

@@ -13,12 +13,31 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import prisma from '../lib/prisma'
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 
 
-function EvaluationCard({ user, sentences }) {
+function EvaluationCard({ user, sentences, data, data2}) {
+
+  //const models_to_use = import('../models.json')
+  const verify = data2
   const [email, setEmail] = useState('')
-  const [indexValue, setIndexValue] = useState(0)
+  //const [indexValue, setIndexValue] = useState(0)
+  var x = 0
+  for (let i = 0; i < data.length; i++) {
+    //var sector = user.email
+    var gheto = data[i].name
+    if(gheto==user.nickname){
+      const sentences_stop = data[i].evaluated_sentences_no
+      var b = `${sentences_stop}`
+      var x = Number(b)
+      //setIndexValue(x)
+    }
+  }
+  const [indexValue, setIndexValue] = useState(x)
   const [name, setName] = useState('')
   const [sentence, setSentence] = useState(sentences[indexValue].sentence)
   const [metric, setMetric] = useState(1)
@@ -38,18 +57,6 @@ function EvaluationCard({ user, sentences }) {
     setSentence2(urlappend2)
   }
 
-  const sentence_number = async () => {
-    email = user.name
-    let response_sentence_num = await fetch("/api/display", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(email),
-    })
-    let sentence_info_num = await response_sentence_num.json();
-    return sentence_info_num.evaluated_sentences_no
-  }
-
-  console.log(sentence_number);
   /* 
       name = user.nickname
       email = user.name
@@ -61,6 +68,7 @@ function EvaluationCard({ user, sentences }) {
         body: JSON.stringify(body),
       })
   */
+
  
   const submitData = async e => {
     e.preventDefault()
@@ -98,25 +106,50 @@ function EvaluationCard({ user, sentences }) {
   }
   return (
     <>
-      <h1>Evaluate</h1>
+      <Typography variant="h4" component="div" gutterBottom>
+          Evaluate
+      </Typography>
 
       <div>
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
+
+
         {indexValue < 9 &&
           <>
-          <Button variant="contained">Sentence</Button> 
-            <p>{sentence}</p>
+            <Card sx={{ minWidth: 275, bgcolor: 'text.primary', color: 'background.paper' }}> 
+              <CardContent>
+
+              <Typography variant="h5" component="div" gutterBottom>
+                {sentence}
+              </Typography>
+
+              </CardContent>
+
+            </Card>
+
+            
             
             {
               // This is the beginning of the grid side by side layout
             }
+
+            <Card sx={{ minWidth: 275 }}> 
+              <CardContent>
+
+              <div align="center">
+                  <audio ref={inputRef} controls align="center">
+                    <source src={sentence2} />
+                  </audio>
+              </div> 
+
+              </CardContent>
+
+            </Card>
+
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <audio ref={inputRef} controls>
-                      <source src={sentence2} />
-                    </audio>
-
+                                 
                           
                     <p>Use the buttons below to rate the audio</p>
                     <Box sx={{ mx: "auto", width: 500 }}>
@@ -173,8 +206,7 @@ function EvaluationCard({ user, sentences }) {
 
                       <Box sx={{ mx: "auto", width: 0 }}>
                         <ButtonGroup disableElevation variant="contained">
-                          <Button type="submit" value="Create" >Submit</Button>
-                          <Button>Next</Button>
+                            <Button type="submit" value="Create" >Submit</Button>
                         </ButtonGroup>
                       </Box>
                     </form>
@@ -186,7 +218,9 @@ function EvaluationCard({ user, sentences }) {
 
         {indexValue > 8 &&
           <>
-              <h2>Thank you for this, your submissions have been noted</h2>
+              <Typography variant="h2" component="div" gutterBottom>
+                Thank you for this, your submissions have been noted.
+              </Typography>
           </>
         }
          
@@ -196,17 +230,17 @@ function EvaluationCard({ user, sentences }) {
   )
 }
 
-function Evaluation({ sentences }) {
+function Evaluation({ sentences, data, data2}) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
     <Layout user={user} loading={loading}>
-      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences}/>}
+      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences} data={data} data2={data2}/>}
     </Layout>
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   //const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
@@ -215,14 +249,27 @@ export async function getStaticProps() {
   const res1 = JSON.stringify(res)
   const sentences = JSON.parse(res1)
 
+  const data_res = await prisma.individuals_data_db_table.findMany()
+  const res1_data = JSON.stringify(data_res)
+  const data = JSON.parse(res1_data)
+
+  const res2 = await fetch('http://localhost:3000/api/get_models')
+  const res1_data2 = await JSON.stringify(res2)
+  const data2 = await JSON.parse(res1_data2)
+  //const data2 = JSON.stringify(data28)
+
+
+
+
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      sentences
+      sentences, data, data2
     },
   }
 }
+
 
 
 export default Evaluation
