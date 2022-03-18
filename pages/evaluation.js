@@ -81,15 +81,15 @@ function EvaluationCard({ user, sentences, data, data2}) {
       let sentence_num = indexValue + 1
       let other_body = { sentence }
       //let response1 = await fetch('http://34.132.72.167:5005/api/evalstats?text=Wandiika')
-      let response = await fetch("/api/stats", {
+      /* let response = await fetch("/api/stats", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(other_body),
-      })
-      let sentence_info = await response.json();
+      }) */
+      // let sentence_info = await response.json();
       //let sentence_info = JSON.stringify(sentence_info1)
-      const body1 = { name, email, sentence, metric, comment, model, evaluation_time, sentence_num}
-      let body = Object.assign(body1, sentence_info)
+      const body = { name, email, sentence, metric, comment, model, evaluation_time, sentence_num}
+      // let body = Object.assign(body1, sentence_info)
       await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

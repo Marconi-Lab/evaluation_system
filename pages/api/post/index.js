@@ -3,9 +3,10 @@ import prisma from '../../../lib/prisma'
 // POST /api/post
 // Updated fields in body: name, email, sentence, metric, comment, model
 export default async function handle(req, res) {
-  const { name, email, sentence, metric, comment, model, evaluation_time, sentence_num, sentence_info} = req.body
-  const all_sentence_info = JSON.parse(sentence_info)
-  const total_acceptance_time_req = all_sentence_info["process_t"] + all_sentence_info["wav_length"]
+  const { name, email, sentence, metric, comment, model, evaluation_time, sentence_num} = req.body
+  //const all_sentence_info = JSON.parse(sentence_info)
+  //const total_acceptance_time_req = all_sentence_info["process_t"] + all_sentence_info["wav_length"]
+  const total_acceptance_time_req = 0
   if (evaluation_time >= total_acceptance_time_req){
     var accept_tag = true
   }else{
@@ -14,9 +15,9 @@ export default async function handle(req, res) {
   const result = await prisma.evaluation_db_table.create({
     data: {
       model_version_id: model,
-      inference_time: all_sentence_info["process_t"],
-      rtf:all_sentence_info["rtf_f"],
-      wav_length_seconds:all_sentence_info["wav_length"],
+      inference_time: 0,
+      rtf:0,
+      wav_length_seconds:0,
       evaluation_time:evaluation_time,
       rating_no:metric,
       comment: comment,
