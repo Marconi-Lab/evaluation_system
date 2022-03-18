@@ -44,7 +44,7 @@ function EvaluationCard({ user, sentences, data, data2}) {
   const [comment, setComment] = useState('')
   const [ms_time_on_start, setMs_time_on_start] = useState(Date.now())
   const [model, setModel] = useState('')
-  const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text="+sentence)
+  const [sentence2, setSentence2] = useState("/audios/"+indexValue+".wav")
 
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
@@ -52,7 +52,7 @@ function EvaluationCard({ user, sentences, data, data2}) {
   // This function handles the sentence variable state change and also with an inputRef churns the audio output
   const setURL = (value) => {
     setSentence(value)
-    const urlappend2 = "http://34.132.72.167:5002/api/tts?text=" + value
+    const urlappend2 = "/audios/"+[indexValue+1]+".wav"
     inputRef.current.src = urlappend2
     setSentence2(urlappend2)
   }
