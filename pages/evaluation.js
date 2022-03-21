@@ -44,7 +44,7 @@ function EvaluationCard({ user, sentences, data, data2}) {
   const [comment, setComment] = useState('')
   const [ms_time_on_start, setMs_time_on_start] = useState(Date.now())
   const [model, setModel] = useState('')
-  const [sentence2, setSentence2] = useState("http://34.132.72.167:5002/api/tts?text="+sentence)
+  const [sentence2, setSentence2] = useState("/audios/"+indexValue+".wav")
 
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
@@ -52,7 +52,7 @@ function EvaluationCard({ user, sentences, data, data2}) {
   // This function handles the sentence variable state change and also with an inputRef churns the audio output
   const setURL = (value) => {
     setSentence(value)
-    const urlappend2 = "http://34.132.72.167:5002/api/tts?text=" + value
+    const urlappend2 = "/audios/"+[indexValue+1]+".wav"
     inputRef.current.src = urlappend2
     setSentence2(urlappend2)
   }
@@ -81,15 +81,15 @@ function EvaluationCard({ user, sentences, data, data2}) {
       let sentence_num = indexValue + 1
       let other_body = { sentence }
       //let response1 = await fetch('http://34.132.72.167:5005/api/evalstats?text=Wandiika')
-      let response = await fetch("/api/stats", {
+      /* let response = await fetch("/api/stats", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(other_body),
-      })
-      let sentence_info = await response.json();
+      }) */
+      // let sentence_info = await response.json();
       //let sentence_info = JSON.stringify(sentence_info1)
-      const body1 = { name, email, sentence, metric, comment, model, evaluation_time, sentence_num}
-      let body = Object.assign(body1, sentence_info)
+      const body = { name, email, sentence, metric, comment, model, evaluation_time, sentence_num}
+      // let body = Object.assign(body1, sentence_info)
       await fetch(process.env.NEXT_PUBLIC_DB_PUBLIC_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
