@@ -41,31 +41,42 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       const sentences_stop = data[i].evaluated_sentences_no
       
       const tess = JSON.stringify(data_two)
-      var results = [];
-      var searchField = "sentences_db_tableId";
-      const determine_rand = getRandomInt(1,10)
-      var searchVal = determine_rand;
-      for (let i=0 ; i < data_two.length ; i++)
-      {
-          if (data_two[i][searchField] == searchVal) {
-              results.push(JSON.stringify(data_two[i][searchField]));
-          }
-      }
-      var results_ = results.toString()
-      //const sentences_stop_d = data[i].evaluation_db_table
       var b = `${sentences_stop}`
       var x = Number(b)
+      var iter = x
+      var determine_rand = 0
+      while(iter < 10){
+        var results = [];
+        var searchField = "sentences_db_tableId";
+        var determine_rand = getRandomInt(1,10)
+        var searchVal = determine_rand;
+        for (let i=0 ; i < data_two.length ; i++)
+        {
+            if (data_two[i][searchField] == searchVal) {
+                results.push(JSON.stringify(data_two[i][searchField]));
+            }
+        }
+        var checks = results.includes(determine_rand.toString());
+        if(checks === false){
+          break;
+        }
+        iter ++
+      }
+      
+      var results_ = results.toString()
+      //const sentences_stop_d = data[i].evaluation_db_table
+      
       //setIndexValue(x) 
     }
   }
   const [indexValue, setIndexValue] = useState(x)
   const [name, setName] = useState('')
-  const [sentence, setSentence] = useState(sentences[indexValue].sentence)
+  const [sentence, setSentence] = useState(sentences[determine_rand].sentence)
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
   const [ms_time_on_start, setMs_time_on_start] = useState(Date.now())
   const [model, setModel] = useState('')
-  const [sentence2, setSentence2] = useState("/audios/"+indexValue+".wav")
+  const [sentence2, setSentence2] = useState("/audios/"+determine_rand+".wav")
 
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
@@ -132,7 +143,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       </Typography>
 
       <div>
-        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_}</p>
+        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_} {checks.toString()}</p>
 
 
         {indexValue < 9 &&
