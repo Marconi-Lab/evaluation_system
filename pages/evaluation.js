@@ -20,8 +20,15 @@ import CardContent from '@mui/material/CardContent';
 
 
 
-function EvaluationCard({ user, sentences, data, data2}) {
+function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  }
+
+  const determine = getRandomInt(1,10)
   //const models_to_use = import('../models.json')
   const verify = data2
   const [email, setEmail] = useState('')
@@ -32,9 +39,23 @@ function EvaluationCard({ user, sentences, data, data2}) {
     var gheto = data[i].name
     if(gheto==user.nickname){
       const sentences_stop = data[i].evaluated_sentences_no
+      
+      const tess = JSON.stringify(data_two)
+      var results = [];
+      var searchField = "sentences_db_tableId";
+      const determine_rand = getRandomInt(1,10)
+      var searchVal = determine_rand;
+      for (let i=0 ; i < data_two.length ; i++)
+      {
+          if (data_two[i][searchField] == searchVal) {
+              results.push(JSON.stringify(data_two[i][searchField]));
+          }
+      }
+      var results_ = results.toString()
+      //const sentences_stop_d = data[i].evaluation_db_table
       var b = `${sentences_stop}`
       var x = Number(b)
-      //setIndexValue(x)
+      //setIndexValue(x) 
     }
   }
   const [indexValue, setIndexValue] = useState(x)
@@ -111,7 +132,7 @@ function EvaluationCard({ user, sentences, data, data2}) {
       </Typography>
 
       <div>
-        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
+        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_}</p>
 
 
         {indexValue < 9 &&
@@ -230,12 +251,12 @@ function EvaluationCard({ user, sentences, data, data2}) {
   )
 }
 
-function Evaluation({ sentences, data, data2}) {
+function Evaluation({ sentences, data, data2, data_two}) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
     <Layout user={user} loading={loading}>
-      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences} data={data} data2={data2}/>}
+      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences} data={data} data2={data2} data_two={data_two}/>}
     </Layout>
   )
 }
@@ -259,13 +280,22 @@ export async function getServerSideProps() {
   //const data2 = JSON.stringify(data28)
 
 
+  const data_res_two = await prisma.evaluation_db_table.findMany({
+    where: { individuals_data_db_table: {
+      email: 'abrahamkakooza@gmail.com' }
+    }
+  })
+  const res1_data_two = JSON.stringify(data_res_two)
+  const data_two = JSON.parse(res1_data_two)
+
+
 
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      sentences, data, data2
+      sentences, data, data2, data_two
     },
   }
 }
