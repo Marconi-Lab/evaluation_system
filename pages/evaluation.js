@@ -33,7 +33,45 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
   const verify = data2
   const [email, setEmail] = useState('')
   //const [indexValue, setIndexValue] = useState(0)
+
+
+  const [dataz, setDataz] = useState('')
+
+  useEffect(() => {
+    // declare the data fetching function
+    const fetchData = async () => {
+
+      let email2 = user.name
+
+      const body_cont = { email2 }
+
+      const response = await fetch("http://localhost:3000/api/checker", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body_cont),
+      })
+
+      //const response = await fetch('http://localhost:3000/api/feed');
+
+      const json = await response.json();
+
+      var gesa = JSON.stringify(json)
+
+      // set state with the result
+      setDataz(gesa);
+
+    }
+  
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
+  }, [])
+
+
+  var g = dataz
   var x = 0
+  var determine_rand = 0
   for (let i = 0; i < data.length; i++) {
     //var sector = user.email
     var gheto = data[i].name
@@ -42,33 +80,35 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       
       const tess = JSON.stringify(data_two)
       var b = `${sentences_stop}`
-      var x = Number(b)
-      var iter = x
-      var determine_rand = 0
-      while(iter < 10){
-        var results = [];
-        var searchField = "sentences_db_tableId";
-        var determine_rand = getRandomInt(1,10)
-        var searchVal = determine_rand;
-        for (let i=0 ; i < data_two.length ; i++)
-        {
-            if (data_two[i][searchField] == searchVal) {
-                results.push(JSON.stringify(data_two[i][searchField]));
-            }
-        }
-        var checks = results.includes(determine_rand.toString());
-        if(checks === false){
-          break;
-        }
-        iter ++
+      if(b !== undefined){
+        var x = Number(b)
       }
-      
-      var results_ = results.toString()
       //const sentences_stop_d = data[i].evaluation_db_table
       
       //setIndexValue(x) 
     }
   }
+  var iter = x
+  var results = [];
+  while(iter < 10){
+    var searchField = "sentences_db_tableId";
+    var determine_rand = getRandomInt(1,10)
+    var searchVal = determine_rand;
+    for (let i=0 ; i < data_two.length ; i++)
+    {
+        if (data_two[i][searchField] == searchVal) {
+            results.push(JSON.stringify(data_two[i][searchField]));
+        }
+    }
+    var checks = results.includes(determine_rand.toString());
+    if(checks === false){
+      break;
+    }
+    iter ++
+  }
+  
+  var results_ = results.toString()
+
   const [indexValue, setIndexValue] = useState(x)
   const [name, setName] = useState('')
   const [sentence, setSentence] = useState(sentences[determine_rand].sentence)
@@ -143,7 +183,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       </Typography>
 
       <div>
-        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_} {checks.toString()}</p>
+        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_} {checks.toString()} {g}</p>
 
 
         {indexValue < 9 &&
