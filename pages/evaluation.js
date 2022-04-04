@@ -20,31 +20,103 @@ import CardContent from '@mui/material/CardContent';
 
 
 
-function EvaluationCard({ user, sentences, data, data2}) {
+function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  }
+
+  const determine = getRandomInt(1,10)
   //const models_to_use = import('../models.json')
   const verify = data2
   const [email, setEmail] = useState('')
   //const [indexValue, setIndexValue] = useState(0)
+
+
+  const [dataz, setDataz] = useState('')
+
+  useEffect(() => {
+    // declare the data fetching function
+    const fetchData = async () => {
+
+      let email2 = user.name
+
+      const body_cont = { email2 }
+
+      const response = await fetch("http://localhost:3000/api/checker", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body_cont),
+      })
+
+      //const response = await fetch('http://localhost:3000/api/feed');
+
+      const json = await response.json();
+
+      var gesa = JSON.stringify(json)
+
+      // set state with the result
+      setDataz(gesa);
+
+    }
+  
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
+  }, [])
+
+
+  var g = dataz
   var x = 0
+  var determine_rand = 0
   for (let i = 0; i < data.length; i++) {
     //var sector = user.email
     var gheto = data[i].name
     if(gheto==user.nickname){
       const sentences_stop = data[i].evaluated_sentences_no
+      
+      const tess = JSON.stringify(data_two)
       var b = `${sentences_stop}`
-      var x = Number(b)
-      //setIndexValue(x)
+      if(b !== undefined){
+        var x = Number(b)
+      }
+      //const sentences_stop_d = data[i].evaluation_db_table
+      
+      //setIndexValue(x) 
     }
   }
+  var iter = x
+  var results = [];
+  while(iter < 10){
+    var searchField = "sentences_db_tableId";
+    var determine_rand = getRandomInt(1,10)
+    var searchVal = determine_rand;
+    for (let i=0 ; i < data_two.length ; i++)
+    {
+        if (data_two[i][searchField] == searchVal) {
+            results.push(JSON.stringify(data_two[i][searchField]));
+        }
+    }
+    var checks = results.includes(determine_rand.toString());
+    if(checks === false){
+      break;
+    }
+    iter ++
+  }
+  
+  var results_ = results.toString()
+
   const [indexValue, setIndexValue] = useState(x)
   const [name, setName] = useState('')
-  const [sentence, setSentence] = useState(sentences[indexValue].sentence)
+  const [sentence, setSentence] = useState(sentences[determine_rand].sentence)
   const [metric, setMetric] = useState(1)
   const [comment, setComment] = useState('')
   const [ms_time_on_start, setMs_time_on_start] = useState(Date.now())
   const [model, setModel] = useState('')
-  const [sentence2, setSentence2] = useState("/audios/"+indexValue+".wav")
+  const [sentence2, setSentence2] = useState("/audios/"+determine_rand+".wav")
 
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
@@ -111,7 +183,7 @@ function EvaluationCard({ user, sentences, data, data2}) {
       </Typography>
 
       <div>
-        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models</p>
+        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_} {checks.toString()} {g}</p>
 
 
         {indexValue < 9 &&
@@ -230,12 +302,12 @@ function EvaluationCard({ user, sentences, data, data2}) {
   )
 }
 
-function Evaluation({ sentences, data, data2}) {
+function Evaluation({ sentences, data, data2, data_two}) {
   const { user, loading } = useFetchUser({ required: true })
 
   return (
     <Layout user={user} loading={loading}>
-      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences} data={data} data2={data2}/>}
+      {loading ? <>Loading...</> : <EvaluationCard user={user} sentences={sentences} data={data} data2={data2} data_two={data_two}/>}
     </Layout>
   )
 }
@@ -259,13 +331,22 @@ export async function getServerSideProps() {
   //const data2 = JSON.stringify(data28)
 
 
+  const data_res_two = await prisma.evaluation_db_table.findMany({
+    where: { individuals_data_db_table: {
+      email: 'abrahamkakooza@gmail.com' }
+    }
+  })
+  const res1_data_two = JSON.stringify(data_res_two)
+  const data_two = JSON.parse(res1_data_two)
+
+
 
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      sentences, data, data2
+      sentences, data, data2, data_two
     },
   }
 }
