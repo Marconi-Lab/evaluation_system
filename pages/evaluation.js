@@ -28,14 +28,19 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
   }
 
+  var x = 0
+  var determine_rand = 0
+  var iter = x
+  var results = [];
+
   const determine = getRandomInt(1,10)
   //const models_to_use = import('../models.json')
-  const verify = data2
   const [email, setEmail] = useState('')
   //const [indexValue, setIndexValue] = useState(0)
 
-
+  // dataz variable contains all the questions submitted by user
   const [dataz, setDataz] = useState('')
+  const [dataz2, setDataz2] = useState('{}')
 
   useEffect(() => {
     // declare the data fetching function
@@ -51,14 +56,34 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         body: JSON.stringify(body_cont),
       })
 
-      //const response = await fetch('http://localhost:3000/api/feed');
-
       const json = await response.json();
 
       var gesa = JSON.stringify(json)
+      var d_length = gesa.length
+      /* if(d_length !== 0){
+        var json_obj = JSON.parse(dataz)
+        while(iter < 10){
+          var searchField = "sentences_db_tableId";
+          var determine_rand = getRandomInt(1,10)
+          var searchVal = determine_rand;
+          for (let i=0 ; i < json_obj.length ; i++)
+          {
+              if (json_obj[i][searchField] == searchVal) {
+                  results.push(JSON.stringify(json_obj[i][searchField]));
+              }
+          }
+          var checks = results.includes(determine_rand.toString());
+          if(checks === false){
+            break;
+          }
+          iter ++
+        }
+      } */
+      
 
       // set state with the result
-      setDataz(gesa);
+      setDataz2(gesa)
+      setDataz(d_length);
 
     }
   
@@ -70,15 +95,33 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
 
   var g = dataz
-  var x = 0
-  var determine_rand = 0
+  var cars = 0
+  if(dataz !== 0){
+    const gs = "sd"
+    var json_obj = JSON.parse(dataz2)
+    var cars = json_obj.length
+    var searchField = "sentences_db_tableId";
+    for (let i=0 ; i < json_obj.length ; i++)
+    {
+      results.push(JSON.stringify(json_obj[i][searchField]))
+    }
+    while(iter < 10){
+      var determine_rand = getRandomInt(1,10)
+      //var searchVal = determine_rand;
+      var checks = results.includes(determine_rand.toString());
+      if(checks === false){
+        break;
+      }
+      iter ++
+    }
+  }
+  
   for (let i = 0; i < data.length; i++) {
     //var sector = user.email
     var gheto = data[i].name
     if(gheto==user.nickname){
       const sentences_stop = data[i].evaluated_sentences_no
       
-      const tess = JSON.stringify(data_two)
       var b = `${sentences_stop}`
       if(b !== undefined){
         var x = Number(b)
@@ -88,24 +131,11 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       //setIndexValue(x) 
     }
   }
-  var iter = x
-  var results = [];
-  while(iter < 10){
-    var searchField = "sentences_db_tableId";
-    var determine_rand = getRandomInt(1,10)
-    var searchVal = determine_rand;
-    for (let i=0 ; i < data_two.length ; i++)
-    {
-        if (data_two[i][searchField] == searchVal) {
-            results.push(JSON.stringify(data_two[i][searchField]));
-        }
-    }
-    var checks = results.includes(determine_rand.toString());
-    if(checks === false){
-      break;
-    }
-    iter ++
-  }
+  
+  
+  //var hsb = `${dataz}`
+  
+  
   
   var results_ = results.toString()
 
@@ -150,7 +180,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       name = user.nickname
       email = user.name
       model = 1
-      let sentence_num = indexValue + 1
+      let sentence_num = determine_rand
       let other_body = { sentence }
       //let response1 = await fetch('http://34.132.72.167:5005/api/evalstats?text=Wandiika')
       /* let response = await fetch("/api/stats", {
@@ -171,7 +201,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       setURL(sentences[indexValue+1].sentence)
       setComment('')
       setMs_time_on_start(Date.now())
-      // await Router.push('/')
+      await Router.push('/evaluation')
     } catch (error) {
       console.error(error)
     }
@@ -183,7 +213,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       </Typography>
 
       <div>
-        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_} {checks.toString()} {g}</p>
+        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_} {dataz} {cars}</p>
 
 
         {indexValue < 9 &&
