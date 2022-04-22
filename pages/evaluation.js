@@ -104,10 +104,10 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
           var searchField = "sentences_db_tableId";
           var gesturez = d_length
           for (let i=0 ; i < json_obj.length ; i++){
-            let inter_arr = JSON.stringify(json_obj[i][searchField])
+            var inter_arr = JSON.stringify(json_obj[i][searchField])
             //setArr((oldArray) => oldArray.concat(inter_arr))
             //We have to remove below
-            results.push(JSON.stringify(json_obj[i][searchField]))
+            results.push(parseInt(inter_arr))
           }
         }else {
           let gesturez = 0
@@ -136,10 +136,10 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
     var searchField = "sentences_db_tableId";
     for (let i=0 ; i < json_obj.length ; i++)
     {
-      let inter_arr = JSON.stringify(json_obj[i][searchField])
+      var inter_arr = JSON.stringify(json_obj[i][searchField])
       //setArr((oldArray) => oldArray.concat(inter_arr))
       //We have to remove below
-      results.push(JSON.stringify(json_obj[i][searchField]))
+      results.push(parseInt(inter_arr))
     }
   }
 
