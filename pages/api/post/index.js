@@ -32,7 +32,7 @@ export default async function handle(req, res) {
           create: {
             email: email,
             name: name,
-            evaluated_sentences_no:1,
+            evaluated_sentences_no:0,
             evaluated_models_array:"['v2']",
             total_evaluated_models:1,
             evaluation_status:false,

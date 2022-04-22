@@ -35,7 +35,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
   var results = [];
   const [arr, setArr] = useState([]);
 
-  const determine = getRandomInt(1,10)
+  const determine = getRandomInt(0,10)
   //const models_to_use = import('../models.json')
   const [email, setEmail] = useState('')
   //const [indexValue, setIndexValue] = useState(0)
@@ -145,7 +145,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
   var iter = 0
   while(iter < 10000){
-    var determine_rand = getRandomInt(1,10)
+    var determine_rand = getRandomInt(0,10)
     var determine_rand_chk = determine_rand + 1
     //var searchVal = determine_rand;
     var checks = arr.includes(determine_rand_chk);
@@ -205,6 +205,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
     const urlappend2 = "/audios/"+[random_number]+".wav"
     inputRef.current.src = urlappend2
     setSentence2(urlappend2)
+    setArr((oldArray) => oldArray.concat([random_number + 1]))
   }, [random_number])
 
   /* 
@@ -248,12 +249,12 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       setIndexValue(indexValue+1)
       //setURL(sentences[indexValue+1].sentence)
       setComment('')
-      setArr((oldArray) => oldArray.concat([sentence_num]))
+      //setArr((oldArray) => oldArray.concat([sentence_num]))
       setRandom_number(() => {
-        var fresh = getRandomInt(1,10)
+        var fresh = getRandomInt(0,10)
         var iter = 0
         while(iter < 10000){
-          var fresh = getRandomInt(1,10)
+          var fresh = getRandomInt(0,10)
           //var searchVal = determine_rand;
           var fresh_chk = fresh + 1
           var checks_again = arr.includes(fresh_chk);
@@ -280,7 +281,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {random_number} Iter {iter} {arr} Results {results}</p>
 
 
-        {indexValue < 9 &&
+        {indexValue < 10 &&
           <>
             <Card sx={{ minWidth: 275, bgcolor: 'text.primary', color: 'background.paper' }}> 
               <CardContent>
@@ -382,7 +383,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
           </>
         }
 
-        {indexValue > 8 &&
+        {indexValue > 9 &&
           <>
               <Typography variant="h2" component="div" gutterBottom>
                 Thank you for this, your submissions have been noted.
@@ -392,7 +393,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
                     <source src={sentence2} />
                   </audio>
                 </div> 
-                
+
               </Typography>
           </>
         }
