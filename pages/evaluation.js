@@ -30,7 +30,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
 
   var x = 0
-  var determine_rand = 0
+  var determine_rand = 1
   var iter = x
   var results = [];
   const [arr, setArr] = useState([]);
@@ -126,6 +126,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
 
 
+
   var g = dataz
   var cars = 0
   if(dataz !== 0){
@@ -155,6 +156,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
   }
 
   const [random_number, setRandom_number] = useState(determine_rand)
+
 
 
   //setArr((oldArray) => oldArray.concat(results))
@@ -190,16 +192,20 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
   const [sentence2, setSentence2] = useState("/audios/"+determine_rand+".wav")
 
 
+
+
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
 
   // This function handles the sentence variable state change and also with an inputRef churns the audio output
-  const setURL = (value) => {
-    setSentence(sentences[value].sentence)
-    const urlappend2 = "/audios/"+[value]+".wav"
+
+  useEffect(() => {
+    //Runs only on the first render
+    setSentence(sentences[random_number].sentence)
+    const urlappend2 = "/audios/"+[random_number]+".wav"
     inputRef.current.src = urlappend2
     setSentence2(urlappend2)
-  }
+  }, [random_number])
 
   /* 
       name = user.nickname
@@ -240,10 +246,9 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         body: JSON.stringify(body),
       })
       setIndexValue(indexValue+1)
-      setArr((oldArray) => oldArray.concat([sentence_num]))
       //setURL(sentences[indexValue+1].sentence)
       setComment('')
-      setTimeout(() => {  console.log("World!"); }, 5000);
+      setArr((oldArray) => oldArray.concat([sentence_num]))
       setRandom_number(() => {
         var fresh = getRandomInt(1,10)
         var iter = 0
@@ -259,7 +264,6 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         }
         return fresh
       })
-      setURL(random_number)
       setMs_time_on_start(Date.now())
       Router.push('/evaluation')
     } catch (error) {
@@ -382,6 +386,13 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
           <>
               <Typography variant="h2" component="div" gutterBottom>
                 Thank you for this, your submissions have been noted.
+                
+                <div align="center">
+                  <audio ref={inputRef} controls align="center">
+                    <source src={sentence2} />
+                  </audio>
+                </div> 
+                
               </Typography>
           </>
         }
