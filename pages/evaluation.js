@@ -28,12 +28,14 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
   }
 
+
   var x = 0
-  var determine_rand = 0
+  var determine_rand = 1
   var iter = x
   var results = [];
+  const [arr, setArr] = useState([]);
 
-  const determine = getRandomInt(1,10)
+  const determine = getRandomInt(0,800)
   //const models_to_use = import('../models.json')
   const [email, setEmail] = useState('')
   //const [indexValue, setIndexValue] = useState(0)
@@ -41,6 +43,9 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
   // dataz variable contains all the questions submitted by user
   const [dataz, setDataz] = useState('')
   const [dataz2, setDataz2] = useState('{}')
+  const [funsumt, setFunsumt] = useState('')
+  const [interim_state, setInterim_state] = useState('interim_state2')
+  //const [results, setResults] = useState([])
 
   useEffect(() => {
     // declare the data fetching function
@@ -50,7 +55,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
       const body_cont = { email2 }
 
-      const response = await fetch("http://localhost:3000/api/checker", {
+      const response = await fetch("http://0.0.0.0:3000/api/checker", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body_cont),
@@ -64,7 +69,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         var json_obj = JSON.parse(dataz)
         while(iter < 10){
           var searchField = "sentences_db_tableId";
-          var determine_rand = getRandomInt(1,10)
+          var determine_rand = getRandomInt(1,800)
           var searchVal = determine_rand;
           for (let i=0 ; i < json_obj.length ; i++)
           {
@@ -80,10 +85,36 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         }
       } */
       
-
+      //var geting_there = testNew(21)
+      //setFunsumt(geting_there)
+      setFunsumt(() => {
+        if (21 > 5) {
+          return 5;
+        }
+        return 21
+      })
       // set state with the result
       setDataz2(gesa)
       setDataz(d_length);
+      setArr((oldArray) => {
+        var cars = 0
+        if (d_length !== 0){
+          let json_obj = JSON.parse(gesa)
+          var cars = json_obj.length
+          var searchField = "sentences_db_tableId";
+          var gesturez = d_length
+          for (let i=0 ; i < json_obj.length ; i++){
+            var inter_arr = JSON.stringify(json_obj[i][searchField])
+            //setArr((oldArray) => oldArray.concat(inter_arr))
+            //We have to remove below
+            results.push(parseInt(inter_arr))
+          }
+        }else {
+          let gesturez = 0
+        }
+        let new_arr = oldArray.concat(results)
+        return new_arr
+      })
 
     }
   
@@ -92,6 +123,8 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       // make sure to catch any error
       .catch(console.error);
   }, [])
+
+
 
 
   var g = dataz
@@ -103,19 +136,30 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
     var searchField = "sentences_db_tableId";
     for (let i=0 ; i < json_obj.length ; i++)
     {
-      results.push(JSON.stringify(json_obj[i][searchField]))
-    }
-    while(iter < 10){
-      var determine_rand = getRandomInt(1,10)
-      //var searchVal = determine_rand;
-      var checks = results.includes(determine_rand.toString());
-      if(checks === false){
-        break;
-      }
-      iter ++
+      var inter_arr = JSON.stringify(json_obj[i][searchField])
+      //setArr((oldArray) => oldArray.concat(inter_arr))
+      //We have to remove below
+      results.push(parseInt(inter_arr))
     }
   }
-  
+
+  var iter = 0
+  while(iter < 10000){
+    var determine_rand = getRandomInt(0,800)
+    var determine_rand_chk = determine_rand + 1
+    //var searchVal = determine_rand;
+    var checks = arr.includes(determine_rand_chk);
+    if(checks === false){
+      break;
+    }
+    iter ++
+  }
+
+  const [random_number, setRandom_number] = useState(determine_rand)
+
+
+
+  //setArr((oldArray) => oldArray.concat(results))
   for (let i = 0; i < data.length; i++) {
     //var sector = user.email
     var gheto = data[i].name
@@ -133,7 +177,6 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
   }
   
   
-  //var hsb = `${dataz}`
   
   
   
@@ -148,16 +191,22 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
   const [model, setModel] = useState('')
   const [sentence2, setSentence2] = useState("/audios/"+determine_rand+".wav")
 
+
+
+
   // An input useRef will help to manage the audio whenever a user types in a new sentence
   const inputRef = useRef()
 
   // This function handles the sentence variable state change and also with an inputRef churns the audio output
-  const setURL = (value) => {
-    setSentence(value)
-    const urlappend2 = "/audios/"+[indexValue+1]+".wav"
+
+  useEffect(() => {
+    //Runs only on the first render
+    setSentence(sentences[random_number].sentence)
+    const urlappend2 = "/audios/"+[random_number]+".wav"
     inputRef.current.src = urlappend2
     setSentence2(urlappend2)
-  }
+    setArr((oldArray) => oldArray.concat([random_number + 1]))
+  }, [random_number])
 
   /* 
       name = user.nickname
@@ -180,7 +229,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       name = user.nickname
       email = user.name
       model = 1
-      let sentence_num = determine_rand
+      let sentence_num = random_number + 1
       let other_body = { sentence }
       //let response1 = await fetch('http://34.132.72.167:5005/api/evalstats?text=Wandiika')
       /* let response = await fetch("/api/stats", {
@@ -198,10 +247,26 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         body: JSON.stringify(body),
       })
       setIndexValue(indexValue+1)
-      setURL(sentences[indexValue+1].sentence)
+      //setURL(sentences[indexValue+1].sentence)
       setComment('')
+      //setArr((oldArray) => oldArray.concat([sentence_num]))
+      setRandom_number(() => {
+        var fresh = getRandomInt(0,800)
+        var iter = 0
+        while(iter < 10000){
+          var fresh = getRandomInt(0,800)
+          //var searchVal = determine_rand;
+          var fresh_chk = fresh + 1
+          var checks_again = arr.includes(fresh_chk);
+          if(checks_again === false){
+            break;
+          }
+          iter ++
+        }
+        return fresh
+      })
       setMs_time_on_start(Date.now())
-      await Router.push('/evaluation')
+      Router.push('/evaluation')
     } catch (error) {
       console.error(error)
     }
@@ -213,10 +278,10 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       </Typography>
 
       <div>
-        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {determine_rand} {results_} {dataz} {cars}</p>
+        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models </p>
 
 
-        {indexValue < 9 &&
+        {indexValue < 100 &&
           <>
             <Card sx={{ minWidth: 275, bgcolor: 'text.primary', color: 'background.paper' }}> 
               <CardContent>
@@ -318,10 +383,17 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
           </>
         }
 
-        {indexValue > 8 &&
+        {indexValue > 99 &&
           <>
               <Typography variant="h2" component="div" gutterBottom>
                 Thank you for this, your submissions have been noted.
+                
+                <div align="center">
+                  <audio ref={inputRef} controls align="center">
+                    <source src={sentence2} />
+                  </audio>
+                </div> 
+
               </Typography>
           </>
         }
@@ -355,7 +427,7 @@ export async function getServerSideProps() {
   const res1_data = JSON.stringify(data_res)
   const data = JSON.parse(res1_data)
 
-  const res2 = await fetch('http://localhost:3000/api/get_models')
+  const res2 = await fetch('http://0.0.0.0:3000/api/get_models')
   const res1_data2 = await JSON.stringify(res2)
   const data2 = await JSON.parse(res1_data2)
   //const data2 = JSON.stringify(data28)

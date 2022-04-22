@@ -32,7 +32,7 @@ export default async function handle(req, res) {
           create: {
             email: email,
             name: name,
-            evaluated_sentences_no:1,
+            evaluated_sentences_no:0,
             evaluated_models_array:"['v2']",
             total_evaluated_models:1,
             evaluation_status:false,
@@ -54,7 +54,7 @@ export default async function handle(req, res) {
 
   var updated_qns = result_to_update.evaluated_sentences_no + 1
 
-  if (updated_qns >= 10 ){
+  if (updated_qns >= 100 ){
     var evaluation_status_tag = true
   }else{
     var evaluation_status_tag = false
