@@ -35,7 +35,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
   var results = [];
   const [arr, setArr] = useState([]);
 
-  const determine = getRandomInt(0,10)
+  const determine = getRandomInt(0,800)
   //const models_to_use = import('../models.json')
   const [email, setEmail] = useState('')
   //const [indexValue, setIndexValue] = useState(0)
@@ -69,7 +69,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         var json_obj = JSON.parse(dataz)
         while(iter < 10){
           var searchField = "sentences_db_tableId";
-          var determine_rand = getRandomInt(1,10)
+          var determine_rand = getRandomInt(1,800)
           var searchVal = determine_rand;
           for (let i=0 ; i < json_obj.length ; i++)
           {
@@ -145,7 +145,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
   var iter = 0
   while(iter < 10000){
-    var determine_rand = getRandomInt(0,10)
+    var determine_rand = getRandomInt(0,800)
     var determine_rand_chk = determine_rand + 1
     //var searchVal = determine_rand;
     var checks = arr.includes(determine_rand_chk);
@@ -251,10 +251,10 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       setComment('')
       //setArr((oldArray) => oldArray.concat([sentence_num]))
       setRandom_number(() => {
-        var fresh = getRandomInt(0,10)
+        var fresh = getRandomInt(0,800)
         var iter = 0
         while(iter < 10000){
-          var fresh = getRandomInt(0,10)
+          var fresh = getRandomInt(0,800)
           //var searchVal = determine_rand;
           var fresh_chk = fresh + 1
           var checks_again = arr.includes(fresh_chk);
@@ -281,7 +281,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
         <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {random_number} Iter {iter} {arr} Results {results}</p>
 
 
-        {indexValue < 10 &&
+        {indexValue < 100 &&
           <>
             <Card sx={{ minWidth: 275, bgcolor: 'text.primary', color: 'background.paper' }}> 
               <CardContent>
@@ -383,7 +383,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
           </>
         }
 
-        {indexValue > 9 &&
+        {indexValue > 99 &&
           <>
               <Typography variant="h2" component="div" gutterBottom>
                 Thank you for this, your submissions have been noted.
