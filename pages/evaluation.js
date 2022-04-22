@@ -55,7 +55,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
 
       const body_cont = { email2 }
 
-      const response = await fetch("http://localhost:3000/api/checker", {
+      const response = await fetch("http://0.0.0.0:3000/api/checker", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body_cont),
@@ -427,7 +427,7 @@ export async function getServerSideProps() {
   const res1_data = JSON.stringify(data_res)
   const data = JSON.parse(res1_data)
 
-  const res2 = await fetch('http://localhost:3000/api/get_models')
+  const res2 = await fetch('http://0.0.0.0:3000/api/get_models')
   const res1_data2 = await JSON.stringify(res2)
   const data2 = await JSON.parse(res1_data2)
   //const data2 = JSON.stringify(data28)
