@@ -278,7 +278,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       </Typography>
 
       <div>
-        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models {random_number} Iter {iter} {arr} Results {results}</p>
+        <p>Welcome {user.nickname}, we cannot wait to see you start evaluating our models </p>
 
 
         {indexValue < 100 &&
