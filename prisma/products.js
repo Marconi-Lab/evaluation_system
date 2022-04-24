@@ -1,11 +1,4 @@
-//import { products } from './products';
-
-const { PrismaClient } = require('@prisma/client')
-
-const prisma = new PrismaClient()
-
-
-const products = [
+export  const products = [
   {
     "id": 1,
     "sentence": "Nkwagaliza amazalibwa go amalungi"
@@ -3487,22 +3480,3 @@ const products = [
     "sentence": "Ndowooza kya bulabe okubeera mu bitundu eby'ensozi."
   }
 ];
-
-async function main(){
-
-  for (let product of products){
-    await prisma.sentences_db_table.create({
-      data: product
-    })
-  }
-    const users = await prisma.sentences_db_table.findMany()  
-}
-
-main()
-  .catch((e) => {
-    console.error(e)
-    process.exit(1)
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
