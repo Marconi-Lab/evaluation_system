@@ -249,6 +249,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       setIndexValue(indexValue+1)
       //setURL(sentences[indexValue+1].sentence)
       setComment('')
+      setMetric(1)
       //setArr((oldArray) => oldArray.concat([sentence_num]))
       setRandom_number(() => {
         var fresh = getRandomInt(0,800)
