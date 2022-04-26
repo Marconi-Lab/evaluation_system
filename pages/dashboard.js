@@ -81,7 +81,7 @@ function About({ average, average_rtf, total_count, evaluators }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   //const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
