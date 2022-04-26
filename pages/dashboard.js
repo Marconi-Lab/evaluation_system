@@ -87,7 +87,7 @@ export async function getStaticProps() {
   //const res = await fetch(process.env.NEXT_PUBLIC_DB_FEED_PUBLIC_URL)
   //const posts = await res.json()
 
-  const res = await prisma.evaluation_db_table.aggregate({
+  const resp = await prisma.evaluation_db_table.aggregate({
     _avg: {
       rating_no: true,
       rtf: true,
@@ -107,13 +107,13 @@ export async function getStaticProps() {
   })
 
   //console.log('Average age:' + aggregations._avg.age)
-  const res1 = JSON.stringify(res._avg.rating_no)
+  const res1 = JSON.stringify(resp._avg.rating_no)
   const average = JSON.parse(res1)
 
-  const res1_rtf = JSON.stringify(res._avg.rtf)
+  const res1_rtf = JSON.stringify(resp._avg.rtf)
   const average_rtf = JSON.parse(res1_rtf)
 
-  const res1_count = JSON.stringify(res._count.rating_no)
+  const res1_count = JSON.stringify(resp._count.rating_no)
   const total_count = JSON.parse(res1_count)
 
   const res1_eval = JSON.stringify(res_c._count.name)
