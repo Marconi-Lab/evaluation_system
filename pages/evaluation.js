@@ -279,7 +279,7 @@ function EvaluationCard({ user, sentences, data, data2, data_two}) {
       </Typography>
 
       <div>
-        <p>Welcome {user.nickname}, you are on sentence { indexValue }  </p>
+        <p> {user.nickname}, you've got <strong> { 100 - indexValue } </strong> sentences <strong> to go </strong> !!! </p>
 
 
         {indexValue < 100 &&
