@@ -36,7 +36,6 @@ function About({ average, average_rtf, total_count, evaluators }) {
             <TableRow>
               <TableCell>Model Version</TableCell>
               <TableCell align="center">MOS</TableCell>
-              <TableCell align="center">RTF</TableCell>
               <TableCell align="center">Accepted Submissions</TableCell>
             </TableRow>
           </TableHead>
@@ -54,11 +53,6 @@ function About({ average, average_rtf, total_count, evaluators }) {
                 <TableCell align="center">
                   <Typography variant="overline" display="block" gutterBottom>
                     { average }
-                  </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <Typography variant="overline" display="block" gutterBottom>
-                    { average_rtf }
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
